@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import { Button } from "ui";
+'use client'
+import React from 'react'
+import { Button } from 'ui'
 
 export default function Home() {
   return (
@@ -17,5 +17,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }
