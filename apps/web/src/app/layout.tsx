@@ -1,24 +1,24 @@
-import React from "react";
-import "../styles/globals.css";
+import React from 'react'
+import '../styles/globals.css'
 // include styles from the ui package
-import "ui/styles.css";
-import { Inter } from "next/font/google";
+import 'ui/styles.css'
+import { Inter } from 'next/font/google'
 
 export const metadata = {
-  title: "Plutos",
-  description: "",
-};
+  title: 'Plutos',
+  description: '',
+}
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} bg-zinc-900`}>
+    <html lang="en" className={`${inter.variable} bg-zinc-950 text-white/90`}>
       <body className="antialiased">{children}</body>
     </html>
-  );
+  )
 }
