@@ -12,7 +12,7 @@ export function Widget({
   currency: string
 }) {
   return (
-    <div className="rounded-2xl border border-transparent bg-zinc-900 bg-gradient-to-r from-brandred to-brandblue bg-origin-border">
+    <div className="rounded-2xl border border-transparent bg-zinc-900 bg-gradient-to-r from-brandgreen to-brandblue bg-origin-border">
       <div className="flex flex-col gap-1 rounded-2xl bg-zinc-900/70 px-4 py-6">
         <div className="text-sm text-white/60">{label}</div>
         <div className="flex justify-between gap-4">
