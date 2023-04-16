@@ -1,22 +1,22 @@
 export const CARD_CONTENT = [
   {
     title: 'Wallet',
-    href: '/wallet',
+    href: 'wallet',
     cta: 'Read More',
   },
   {
     title: 'Budget',
-    href: '/budget',
+    href: 'budget',
     cta: 'Read More',
   },
   {
     title: 'Capital',
-    href: '/capital',
+    href: 'capital',
     cta: 'Read More',
   },
   {
     title: 'Onboarding',
-    href: '/onboarding',
+    href: 'onboarding',
     cta: 'Read More',
   },
 ] as const
