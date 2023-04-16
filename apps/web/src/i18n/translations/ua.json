@@ -1,0 +1,23 @@
+{
+  "home": {
+    "title": "Плутос",
+    "description": "Набір інструментів для керування грошима та торгівлі"
+  },
+  "wallet": {
+    "title": "Гаманець",
+    "current-balance": "Поточний баланс",
+    "transactions": "Транзакції"
+  },
+  "common": {
+    "read-more": "Читати далі",
+    "nav": {
+      "home": "Головна",
+      "wallet": "Гаманець",
+      "budget": "Бюджет",
+      "capital":"Капітал",
+      "onboarding": "Онбординг",
+      "exchange": "Обмін",
+      "settings": "Налаштування"
+    }
+  }
+}
