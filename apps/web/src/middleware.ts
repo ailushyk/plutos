@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-
-import { i18n } from './i18n-config'
-
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
+import { i18n } from '@/i18n/i18n-config'
 
 function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
@@ -13,9 +11,8 @@ function getLocale(request: NextRequest): string | undefined {
 
   // Use negotiator and intl-localematcher to get best locale
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages()
-  // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales
-  return matchLocale(languages, locales, i18n.defaultLocale)
+  const locales: string[] = i18n.getInstance().getLocales()
+  return matchLocale(languages, locales, i18n.getInstance().defaultLocale)
 }
 
 export function middleware(request: NextRequest) {
@@ -33,10 +30,13 @@ export function middleware(request: NextRequest) {
   //   return
 
   // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) =>
-      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-  )
+  const pathnameIsMissingLocale = i18n
+    .getInstance()
+    .getLocales()
+    .every(
+      (locale) =>
+        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+    )
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
