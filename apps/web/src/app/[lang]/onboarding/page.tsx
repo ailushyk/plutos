@@ -1,6 +1,6 @@
 import { Button, Card } from 'ui'
 import Link from 'next/link'
-import { ONBOARDING_CARD_CONTENT } from '../../constants'
+import { ONBOARDING_CARD_CONTENT } from '../../../constants'
 
 export default function OnboardingPage() {
   return (
