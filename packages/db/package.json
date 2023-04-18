@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "main": "index.js",
   "dependencies": {
-
+    "@prisma/client": "^4.13.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "eslint": "^8.38.0",
     "eslint-config-custom": "workspace:*",
+    "prisma": "^4.13.0",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
