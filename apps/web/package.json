@@ -12,6 +12,7 @@
     "@formatjs/intl-localematcher": "^0.2.32",
     "@heroicons/react": "^2.0.17",
     "big.js": "^6.2.1",
+    "db": "workspace:*",
     "negotiator": "^0.6.3",
     "next": "latest",
     "react": "^18.2.0",
@@ -20,6 +21,7 @@
     "ui": "workspace:*"
   },
   "devDependencies": {
+    "@prisma/nextjs-monorepo-workaround-plugin": "^4.13.0",
     "@types/negotiator": "^0.6.1",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",

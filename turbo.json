@@ -6,6 +6,11 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
+    "db:migrate:deploy": {},
+    "db:push": {
+      "cache": false
+    },
+    "db:seed": {},
     "lint": {},
     "check-types": {},
     "dev": {
