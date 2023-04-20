@@ -2,7 +2,11 @@ import { Button, Card } from 'ui'
 import Link from 'next/link'
 import { ONBOARDING_CARD_CONTENT } from '@/constants'
 
-export default function OnboardingPage() {
+export default function OnboardingPage({
+  params,
+}: {
+  params: { lang: Locale }
+}) {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <main className="mx-auto w-auto px-4 pb-8 pt-16 sm:pt-24 lg:px-8">
@@ -12,7 +16,7 @@ export default function OnboardingPage() {
           </span>
         </h1>
         <div className="mx-auto mt-5 max-w-xl sm:flex sm:justify-center md:mt-8">
-          <Link href="/">
+          <Link href={`/${params.lang}`}>
             <Button>Start</Button>
           </Link>
         </div>

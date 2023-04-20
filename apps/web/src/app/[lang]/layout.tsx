@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../styles/globals.css'
 // include styles from the ui package
-import '../../../../../packages/ui/dist/index.css'
+import 'ui/styles.css'
 import { Inter } from 'next/font/google'
 
 export const metadata = {
