@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.16.4",
     "@formatjs/intl-localematcher": "^0.2.32",
     "@heroicons/react": "^2.0.17",
     "big.js": "^6.2.1",

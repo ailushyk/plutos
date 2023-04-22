@@ -3,6 +3,7 @@ import '../../styles/globals.css'
 // include styles from the ui package
 import 'ui/styles.css'
 import { Inter } from 'next/font/google'
+import Providers from '@/app/Providers'
 
 export const metadata = {
   title: 'Plutos',
@@ -25,7 +26,7 @@ export default function RootLayout({
     >
       <body className="antialiased">
         <div className="status-bar h-12" />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
