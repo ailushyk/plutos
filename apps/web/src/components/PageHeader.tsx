@@ -1,10 +1,10 @@
+import React from 'react'
 import Link from 'next/link'
 import {
   HomeIcon as HomeIconOutline,
   UserIcon as UserIconOutline,
 } from '@heroicons/react/24/outline'
 import { HomeIcon, UserIcon } from '@heroicons/react/24/solid'
-import React from 'react'
 
 export function PageHeader(props: {
   lang: Locale
