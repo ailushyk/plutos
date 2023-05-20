@@ -4,8 +4,8 @@ module.exports = {
   // transpilePackages: ['ui', 'db'],
   reactStrictMode: true,
   experimental: {
-    appDir: true,
-    typedRoutes: true,
+    // typedRoutes: true,
+    serverActions: true,
   },
   images: {
     remotePatterns: [
@@ -17,6 +17,9 @@ module.exports = {
       },
     ],
   },
+  // Warning: This allows production builds to successfully complete even if
+  // your project has ESLint errors.
+  // ignoreDuringBuilds: true,
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()]

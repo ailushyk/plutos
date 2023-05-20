@@ -2,7 +2,7 @@ import React from 'react'
 import { List, Section, Widget } from 'ui'
 import { TagIcon } from '@heroicons/react/24/solid'
 import { formatMoney } from '@/utils/money'
-import { useTranslation } from '@/i18n/useTranslation'
+import { Locale, useTranslation } from '@/i18n'
 import { PageHeader } from '@/components/PageHeader'
 
 async function WalletPage({ params }: { params: { lang: Locale } }) {

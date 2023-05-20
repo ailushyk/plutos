@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.17.1",
+    "@clerk/themes": "^1.6.4",
     "@formatjs/intl-localematcher": "^0.2.32",
     "@heroicons/react": "^2.0.17",
     "big.js": "^6.2.1",

@@ -1,5 +1,6 @@
 import 'server-only'
 import { log } from '@/utils/log'
+import { Locale } from '@/i18n'
 
 // We enumerate all dictionaries here for better linting and typescript support
 // We also get the default import for cleaner types

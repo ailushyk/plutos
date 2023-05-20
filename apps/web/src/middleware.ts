@@ -1,9 +1,8 @@
 import type { NextRequest } from 'next/server'
-import { withClerkMiddleware } from '@clerk/nextjs/server'
+import { authMiddleware } from '@clerk/nextjs'
 import { i18NMiddleware } from '@/middlewares/i18n'
-import { authMiddleware } from '@/middlewares/clerk'
 
-const middlewares = [i18NMiddleware, authMiddleware]
+const middlewares = [i18NMiddleware]
 
 function nextMiddleware(request: NextRequest) {
   for (let i = 0; i < middlewares.length; i++) {
@@ -12,12 +11,12 @@ function nextMiddleware(request: NextRequest) {
   }
 }
 
-export const middleware = withClerkMiddleware(nextMiddleware)
+export const middleware = authMiddleware({
+  beforeAuth: (request) => {
+    return nextMiddleware(request)
+  },
+})
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-    // '/((?!static|.*\\..*|_next|favicon.ico).*)',
-    // '/',
-  ],
+  matcher: ['/((?!api|_next).*)'],
 }

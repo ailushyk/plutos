@@ -1,11 +1,14 @@
 import { PageHeader } from '@/components/PageHeader'
 import { GradientText } from 'ui'
 import React from 'react'
-import { useTranslation } from '@/i18n/useTranslation'
+import { Locale, useTranslation } from '@/i18n'
 import Link from 'next/link'
+import { api } from '@/utils/api'
+import { auth } from '@clerk/nextjs'
 
-async function HomePage({ params, ...rest }: { params: { lang: Locale } }) {
+async function HomePage({ params }: { params: { lang: Locale } }) {
   const { t } = await useTranslation(params.lang)
+  const data = await api().star.getAll()
 
   return (
     <div className="flex flex-col items-center">
@@ -17,6 +20,14 @@ async function HomePage({ params, ...rest }: { params: { lang: Locale } }) {
 
       <div className="py-8">
         <Link href={`/${params.lang}/dashboard`}>Dashboard</Link>
+      </div>
+
+      <div>
+        {data.map((star) => (
+          <div key={star.id}>
+            <div>{star.name}</div>
+          </div>
+        ))}
       </div>
     </div>
   )
