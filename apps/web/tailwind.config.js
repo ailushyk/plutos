@@ -7,17 +7,16 @@ module.exports = {
   content: [
     // app content
     `src/**/*.{js,ts,jsx,tsx}`,
-    // './node_modules/ui/src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/ui/src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: [
-          // 'Inter var',
-          'var(--font-inter)',
-          ...defaultTheme.fontFamily.sans,
-        ],
-      },
+      // fontFamily: {
+      //   sans: [
+      //     'var(--font-inter)',
+      //     ...defaultTheme.fontFamily.sans,
+      //   ],
+      // },
     },
   },
 }

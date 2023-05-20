@@ -4,6 +4,9 @@ import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 import { i18n } from '@/i18n/i18n-config'
 
+const defaultLocale = 'en'
+const definedLocales = [defaultLocale, 'ua', 'pl'] as const
+
 export function getLocale(request: NextRequest): string | undefined {
   // Negotiator expects plain object so we need to transform headers
   const negotiatorHeaders: Record<string, string> = {}
@@ -11,8 +14,9 @@ export function getLocale(request: NextRequest): string | undefined {
 
   // Use negotiator and intl-localematcher to get best locale
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages()
-  const locales: string[] = i18n.getInstance().getLocales()
-  return matchLocale(languages, locales, i18n.getInstance().defaultLocale)
+  const locales: string[] = [defaultLocale, 'ua', 'pl']
+  console.log('languages', languages)
+  return matchLocale(languages, locales, defaultLocale)
 }
 
 export function i18NMiddleware(request: NextRequest) {
@@ -20,15 +24,16 @@ export function i18NMiddleware(request: NextRequest) {
 
   // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // // If you have one
-  // if (
-  //   [
-  //     // '/sign-in',
-  //     '/manifest.json',
-  //     '/favicon.ico',
-  //     // Your other files in `public`
-  //   ].includes(pathname)
-  // )
-  //   return
+  if (
+    [
+      '/sign-in',
+      '/sign-up',
+      // '/manifest.json',
+      // '/favicon.ico',
+      // Your other files in `public`
+    ].includes(pathname)
+  )
+    return
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n

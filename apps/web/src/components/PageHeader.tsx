@@ -5,6 +5,7 @@ import {
   UserIcon as UserIconOutline,
 } from '@heroicons/react/24/outline'
 import { HomeIcon, UserIcon } from '@heroicons/react/24/solid'
+import { Locale } from '@/i18n'
 
 export function PageHeader(props: {
   lang: Locale

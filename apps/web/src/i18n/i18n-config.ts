@@ -1,5 +1,6 @@
 const defaultLocale = 'en'
 const definedLocales = [defaultLocale, 'ua', 'pl'] as const
+export type Locale = (typeof definedLocales)[number]
 
 const i18n = (() => {
   let instance

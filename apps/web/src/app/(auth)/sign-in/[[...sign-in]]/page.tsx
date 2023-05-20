@@ -1,9 +1,9 @@
-import { SignUp } from '@clerk/nextjs/app-beta'
+import { SignIn } from '@clerk/nextjs'
 
 export default function Page() {
   return (
     <div className="grid place-content-center">
-      <SignUp signInUrl="/sign-in" />
+      <SignIn signUpUrl="/sign-up" />
     </div>
   )
 }
