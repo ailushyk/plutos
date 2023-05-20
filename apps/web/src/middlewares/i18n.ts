@@ -24,16 +24,16 @@ export function i18NMiddleware(request: NextRequest) {
 
   // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // // If you have one
-  if (
-    [
-      '/sign-in',
-      '/sign-up',
-      // '/manifest.json',
-      // '/favicon.ico',
-      // Your other files in `public`
-    ].includes(pathname)
-  )
-    return
+  // if (
+  //   [
+  //     // '/sign-in',
+  //     // '/sign-up',
+  //     // '/manifest.json',
+  //     // '/favicon.ico',
+  //     // Your other files in `public`
+  //   ].includes(pathname)
+  // )
+  //   return
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n

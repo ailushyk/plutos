@@ -1,10 +1,9 @@
 import React from 'react'
 import { Inter } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
+import { AuthProvider } from '@/app/AuthProvider'
 
 import '@/styles/globals.css'
-import '../../../../../packages/ui/dist/index.css'
-import { dark } from '@clerk/themes'
+import 'ui/styles.css'
 
 export const metadata = {
   title: 'Plutos',
@@ -21,11 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-      }}
-    >
+    <AuthProvider params={params}>
       <html lang={params.lang}>
         <body
           className={`${inter.variable} bg-zinc-950 text-white/90 antialiased`}
@@ -34,6 +29,6 @@ export default function RootLayout({
           {children}
         </body>
       </html>
-    </ClerkProvider>
+    </AuthProvider>
   )
 }
