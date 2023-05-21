@@ -9,11 +9,13 @@ const api = () => {
   return {
     star: {
       async getAll(): Promise<DBTypes.Star[]> {
+        // if (!currentUser) return []
+
         return await db.star.findMany({
           take: 100,
-          where: {
-            userId: currentUser.userId,
-          },
+          // where: {
+          //   userId: currentUser.userId,
+          // },
         })
       },
     },

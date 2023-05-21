@@ -3,7 +3,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --no-daemon",
-    "dev:web": "turbo run dev --filter web --filter ui --filter db --no-daemon",
+    "dev:web": "turbo run dev --filter=web... --no-daemon",
+    "dev:pscale": "turbo run dev:pscale --filter=db --no-daemon",
     "db:migrate:deploy": "turbo run db:migrate:deploy",
     "db:push": "turbo run db:push",
     "db:seed": "turbo run db:seed",

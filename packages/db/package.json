@@ -12,6 +12,7 @@
     "build:db": "tsup",
     "dev": "run-s generate dev:db",
     "dev:db": "tsup --watch",
+    "dev:pscale": "pscale connect plutos dev --port 3309",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
