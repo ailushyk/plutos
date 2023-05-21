@@ -20,5 +20,5 @@ export const middleware = authMiddleware({
 
 export const config = {
   // matcher: ['/((?!api|_next).*)'],
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.*\\..*|_next|favicon.ico).*)', '/', '/(api|trpc)(.*)'],
 }

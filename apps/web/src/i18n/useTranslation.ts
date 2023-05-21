@@ -14,6 +14,9 @@ const dictionaries = {
 }
 
 export const useTranslation = async (locale: Locale) => {
+  if (!locale) {
+    throw new Error('No locale was provided')
+  }
   const dictionary = await dictionaries[locale]()
   const t = (key: string) => {
     let value = key.split('.').reduce((obj, k) => {
