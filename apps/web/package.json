@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "npx prisma generate",
-    "db:studio": "dotenv -e .env.local -- npx prisma studio --browser none",
-    "db:push": "dotenv -e .env.local -- npx prisma db push"
+    "db:studio": "npx prisma studio --browser none",
+    "db:push": "npx prisma db push"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.17.1",
@@ -32,7 +32,6 @@
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
-    "dotenv-cli": "^7.2.1",
     "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.21",
     "prisma": "^4.15.0",
