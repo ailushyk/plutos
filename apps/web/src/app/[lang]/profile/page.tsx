@@ -4,6 +4,7 @@ import { User } from '@clerk/nextjs/api'
 import { UserInfo } from '@/components/UserInfo'
 import { RefreshCacheIfUserLogout } from '@/app/[lang]/profile/RefreshCacheIfUserLogout'
 
+export const runtime = 'nodejs'
 async function ProfilePage({ params }: { params: { lang: string } }) {
   const user: User | null = await currentUser()
 

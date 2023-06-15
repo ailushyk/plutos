@@ -20,21 +20,3 @@ export const CARD_CONTENT = [
     cta: 'common.read-more',
   },
 ] as const
-
-export const ONBOARDING_CARD_CONTENT = [
-  {
-    title: 'Wallet',
-    href: '/onboarding/wallet',
-    cta: 'Read More',
-  },
-  {
-    title: 'Budget',
-    href: '/onboarding/budget',
-    cta: 'Read More',
-  },
-  {
-    title: 'Capital',
-    href: '/onboarding/capital',
-    cta: 'Read More',
-  },
-] as const

@@ -8,15 +8,20 @@ const defaultLocale = 'en'
 const definedLocales = [defaultLocale, 'ua', 'pl'] as const
 
 export function getLocale(request: NextRequest): string | undefined {
-  // Negotiator expects plain object so we need to transform headers
-  const negotiatorHeaders: Record<string, string> = {}
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
+  try {
+    // Negotiator expects plain object so we need to transform headers
+    const negotiatorHeaders: Record<string, string> = {}
+    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
 
-  // Use negotiator and intl-localematcher to get best locale
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages()
-  const locales: string[] = [defaultLocale, 'ua', 'pl']
-  console.log('languages', languages)
-  return matchLocale(languages, locales, defaultLocale)
+    // Use negotiator and intl-localematcher to get best locale
+    let languages = new Negotiator({ headers: negotiatorHeaders }).languages()
+    const locales: string[] = [defaultLocale, 'ua', 'pl']
+    console.log('languages', languages)
+    return matchLocale(languages, locales, defaultLocale)
+  } catch (e) {
+    console.error(e)
+    return defaultLocale
+  }
 }
 
 export function i18NMiddleware(request: NextRequest) {
