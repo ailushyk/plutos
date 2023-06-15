@@ -4,6 +4,7 @@ import { Card, GradientText } from 'ui'
 import { Locale, useTranslation } from '@/i18n'
 import { CARD_CONTENT } from '@/constants'
 import { PageHeader } from '@/components/PageHeader'
+import { api } from '@/utils/api'
 
 export default async function Dashboard({
   params,
@@ -11,6 +12,8 @@ export default async function Dashboard({
   params: { lang: Locale }
 }) {
   const { t } = await useTranslation(params.lang)
+  const stars = await api().star.getAll()
+  console.log('stars', stars)
 
   return (
     <div className="flex flex-col items-center">
