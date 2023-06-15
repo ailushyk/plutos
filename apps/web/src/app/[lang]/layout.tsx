@@ -5,8 +5,6 @@ import { AuthProvider } from '@/app/AuthProvider'
 import '@/styles/globals.css'
 import 'ui/styles.css'
 
-export const runtime = 'edge'
-
 export const metadata = {
   title: 'Plutos',
   description: '',

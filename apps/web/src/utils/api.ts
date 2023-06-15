@@ -1,14 +1,13 @@
 'use server'
 import { auth } from '@clerk/nextjs'
-import { db } from 'db'
-import type { DBTypes } from 'db'
+import { db } from '@/utils/db'
 
 const api = () => {
   const currentUser = auth()
 
   return {
     star: {
-      async getAll(): Promise<DBTypes.Star[]> {
+      async getAll() {
         // if (!currentUser) return []
 
         return await db.star.findMany({

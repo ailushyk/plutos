@@ -6,21 +6,20 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
-    "db:migrate:deploy": {},
-    "db:push": {
-      "cache": false
-    },
-    "db:seed": {},
     "lint": {},
     "check-types": {},
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "dev:pscale": {
+    "db:studio": {
       "cache": false,
       "persistent": true
     },
+    "db:push": {
+      "cache": false
+    },
+    "db:seed": {},
     "clean": {
       "cache": false
     }

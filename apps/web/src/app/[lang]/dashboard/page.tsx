@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import { Card, GradientText } from 'ui'
 import { Locale, useTranslation } from '@/i18n'
 import { CARD_CONTENT } from '@/constants'
 import { PageHeader } from '@/components/PageHeader'
-import { api } from '@/utils/api'
+import { db } from '@/utils/db'
+import { Card, GradientText } from 'ui'
 
 export default async function Dashboard({
   params,
@@ -12,7 +12,7 @@ export default async function Dashboard({
   params: { lang: Locale }
 }) {
   const { t } = await useTranslation(params.lang)
-  const stars = await api().star.getAll()
+  const stars = await db.star.findMany()
   console.log('stars', stars)
 
   return (
