@@ -1,4 +1,5 @@
 import { Poppins } from 'next/font/google'
+import { appConfig } from '@/app-config'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -18,7 +19,7 @@ export default function Home() {
       <h1
         className={cn('text-6xl font-semibold drop-shadow-md', font.className)}
       >
-        Plutos
+        {appConfig.appName}
       </h1>
       <p className="text-center text-lg drop-shadow-md">
         A new way to manage your finances
