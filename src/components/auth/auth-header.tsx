@@ -12,7 +12,7 @@ const font = Poppins({
 
 export function AuthHeader({ children }: { children: string }) {
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+    <div className="flex w-full flex-col items-center justify-center gap-y-1.5">
       <h1 className={cn('text-3xl font-semibold', font.className)}>
         <Link href="/">{appConfig.appName}</Link>
       </h1>

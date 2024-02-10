@@ -21,7 +21,7 @@ export function LoginForm() {
     <CardWrapper
       headerLabel="Welcome Back"
       backButtonLabel="Don't have an account? Sign up here."
-      backButtonHref="/auth/signup"
+      backButtonHref="/auth/sign-up"
       showSocial
     >
       <Form action={signInAction}>

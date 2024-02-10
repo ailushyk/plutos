@@ -23,7 +23,7 @@ export const LoginButton = React.forwardRef<
 
   const onClick = () => {
     console.log('TODO: implement redirect click handler')
-    router.push('/auth/login')
+    router.push('/auth/sign-in')
   }
 
   return (

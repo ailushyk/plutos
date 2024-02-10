@@ -83,11 +83,11 @@ const FormField = React.forwardRef<
   {
     name: string
   } & React.HTMLAttributes<HTMLFieldSetElement>
->(({ name, children, ...props }, ref) => {
+>(({ name, className, children, ...props }, ref) => {
   const id = React.useId()
   return (
     <FormFieldContext.Provider value={{ id, name }}>
-      <fieldset ref={ref} {...props}>
+      <fieldset ref={ref} className={cn('space-y-0.5', className)} {...props}>
         {children}
       </fieldset>
     </FormFieldContext.Provider>
@@ -140,7 +140,10 @@ const FormMessage = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn('text-sm font-medium text-destructive', className)}
+      className={cn(
+        'text-sm font-medium text-red-600 dark:text-red-400/90',
+        className,
+      )}
       {...props}
     >
       {firstMessage}
