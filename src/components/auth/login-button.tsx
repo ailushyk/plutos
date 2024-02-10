@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import { AUTH_SIGN_IN_PATH } from '@/routes'
 import { Slot } from '@radix-ui/react-slot'
 
 interface LoginButtonProps {
@@ -23,7 +24,7 @@ export const LoginButton = React.forwardRef<
 
   const onClick = () => {
     console.log('TODO: implement redirect click handler')
-    router.push('/auth/sign-in')
+    router.push(AUTH_SIGN_IN_PATH)
   }
 
   return (

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { LoginForm } from '@/components/auth/login-form'
+import { SignInForm } from '@/components/auth/sign-in-form'
 
 interface LoginPageProps {}
 
 function LoginPage(props: LoginPageProps) {
-  return <LoginForm />
+  return <SignInForm />
 }
 
 export default LoginPage

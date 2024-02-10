@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { signInAction } from '@/actions/auth.actions'
 
@@ -16,7 +14,7 @@ import {
   SubmitButton,
 } from '@/components/form'
 
-export function LoginForm() {
+export function SignInForm() {
   return (
     <CardWrapper
       headerLabel="Welcome Back"
@@ -38,9 +36,9 @@ export function LoginForm() {
           </FormField>
         </FormSection>
 
-        <FormSuccess message="You have been successfully logged in." />
+        <FormSuccess />
 
-        <FormError message="The email or password you entered is incorrect. Please try again." />
+        <FormError />
 
         <SubmitButton type="submit">Login</SubmitButton>
       </Form>

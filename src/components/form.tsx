@@ -4,18 +4,19 @@ import React from 'react'
 import { DangerIcon } from '@/icons/danger-icon'
 import { SuccessIcon } from '@/icons/success-icon'
 import * as LabelPrimitive from '@radix-ui/react-label'
-import { Loader } from 'lucide-react'
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { cn } from '@/lib/utils'
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
 
 type FormStateValue<TData = Record<string, any>> = {
-  success?: boolean
+  status: 'ok' | 'error' | 'pending' | 'idle'
   data?: TData
-  errors?: Record<string, string | string[]>
+  message?: string
+  errors?: {} & Record<string, string | string[]>
 }
 
 type FormContextValue = {
@@ -34,7 +35,7 @@ const useForm = () => {
 }
 
 const defaultInitialState: FormStateValue = {
-  success: false,
+  status: 'idle',
 }
 
 const Form = ({
@@ -43,7 +44,10 @@ const Form = ({
   children,
   className,
 }: {
-  action: (prevState: any, formData: FormData) => Promise<FormStateValue>
+  action: (
+    prevState: FormStateValue,
+    formData: FormData,
+  ) => Promise<FormStateValue>
   initialData?: FormStateValue
   children: React.ReactNode
   className?: string
@@ -131,7 +135,7 @@ const FormMessage = React.forwardRef<
   const { name } = useFormField()
   const _message = message ?? state.errors?.[name]
 
-  if (!_message) return null
+  if (!(state.status === 'error' && _message)) return null
 
   /** Show the first message in the array */
   const firstMessage = Array.isArray(_message)
@@ -153,31 +157,29 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = 'FormMessage'
 
 const FormSuccess = ({ message }: { message?: string }) => {
-  const {
-    state: { success },
-  } = useForm()
+  const { state } = useForm()
+  const _message = message ?? state.message
 
-  if (!success) return null
+  if (!(state.status === 'ok' && _message)) return null
 
   return (
     <div className="flex items-center justify-center gap-x-1 rounded-md bg-emerald-100 p-3 text-sm text-emerald-700 dark:bg-emerald-700 dark:text-emerald-100">
       <SuccessIcon className="h-4 w-4" />
-      {message}
+      {_message}
     </div>
   )
 }
 
 const FormError = ({ message }: { message?: string }) => {
-  const {
-    state: { errors },
-  } = useForm()
+  const { state } = useForm()
+  const _message = message ?? state.message
 
-  if (!errors) return null
+  if (!(state.status === 'error' && _message)) return null
 
   return (
     <div className="flex items-center justify-center gap-x-2 rounded-md bg-red-100 p-3 text-sm text-red-700 dark:bg-destructive/50 dark:text-destructive-foreground/70">
       <DangerIcon className="h-4 w-4 shrink-0" />
-      <div className="text-left">{message}</div>
+      <div className="break-all text-left">{_message}</div>
     </div>
   )
 }
@@ -201,6 +203,7 @@ const SubmitButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Button
         ref={ref}
         type="submit"
+        size="lg"
         className={cn(
           {
             'bg-muted text-muted-foreground': pending,
@@ -211,14 +214,9 @@ const SubmitButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={pending}
         {...props}
       >
-        <span className="relative flex items-center justify-center">
+        <TextWithPendingSpinner isPending={pending}>
           {children}
-          {pending ? (
-            <span className="absolute -left-4 animate-spin duration-1000">
-              <Loader className="h-4 w-4 text-muted-foreground" />
-            </span>
-          ) : null}
-        </span>
+        </TextWithPendingSpinner>
       </Button>
     )
   },

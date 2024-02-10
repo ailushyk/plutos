@@ -23,11 +23,11 @@ export const SighUpSchema = z
         message: 'Email is required',
       })
       .email(),
-    password: z.string().min(6, {
-      message: 'Password must be at least 6 characters long',
+    password: z.string().min(4, {
+      message: 'Password must be at least 4 characters long',
     }),
-    passwordConfirmation: z.string().min(6, {
-      message: 'Password must be at least 6 characters long',
+    passwordConfirmation: z.string().min(4, {
+      message: 'Password must be at least 4 characters long',
     }),
   })
   .refine((data) => data.password === data.passwordConfirmation, {

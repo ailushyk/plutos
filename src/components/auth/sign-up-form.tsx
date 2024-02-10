@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { signUpAction } from '@/actions/auth.actions'
 
@@ -48,11 +46,10 @@ export function SignUpForm() {
           </FormField>
         </FormSection>
 
+        <FormSuccess />
+        <FormError />
+
         <SubmitButton type="submit">Login</SubmitButton>
-
-        <FormSuccess message="You have been successfully logged in." />
-
-        <FormError message="There was an error with your submission. Please try again." />
       </Form>
     </CardWrapper>
   )
