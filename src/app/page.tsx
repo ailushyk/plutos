@@ -1,6 +1,8 @@
 import { Poppins } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { LoginButton } from '@/components/auth/login-button'
 
 const font = Poppins({ subsets: ['latin'], weight: ['600'] })
 
@@ -18,7 +20,13 @@ export default function Home() {
       >
         Plutos
       </h1>
-      <p className="text-lg drop-shadow-md">Coming soon...</p>
+      <p className="text-center text-lg drop-shadow-md">
+        A new way to manage your finances
+      </p>
+
+      <LoginButton asChild>
+        <Button size="lg">Sigh In</Button>
+      </LoginButton>
     </main>
   )
 }
