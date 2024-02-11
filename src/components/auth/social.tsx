@@ -2,10 +2,10 @@
 
 import { useState, useTransition } from 'react'
 import { signInWithProviderAction } from '@/actions/auth.actions'
-import { GithubIcon } from '@/icons/github-icon'
-import { GoogleIcon } from '@/icons/google-icon'
 
 import { Button } from '@/components/ui/button'
+import { GithubIcon } from '@/components/icons/github-icon'
+import { GoogleIcon } from '@/components/icons/google-icon'
 import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
 
 export const Social = () => {

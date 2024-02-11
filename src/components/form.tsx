@@ -1,8 +1,6 @@
 'use client'
 
 import React from 'react'
-import { DangerIcon } from '@/icons/danger-icon'
-import { SuccessIcon } from '@/icons/success-icon'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { useFormState, useFormStatus } from 'react-dom'
 
@@ -10,6 +8,8 @@ import { cn } from '@/lib/utils'
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { DangerIcon } from '@/components/icons/danger-icon'
+import { SuccessIcon } from '@/components/icons/success-icon'
 import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
 
 type FormStateValue<TData = Record<string, any>> = {
