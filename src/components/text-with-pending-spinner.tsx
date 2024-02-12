@@ -1,5 +1,6 @@
 import React from 'react'
-import { Loader } from 'lucide-react'
+
+import { SpinnerIcon } from '@/components/icons/spinner-icon'
 
 interface Props {
   isPending: boolean
@@ -12,7 +13,7 @@ export const TextWithPendingSpinner = ({ isPending, children }: Props) => {
       <span className={isPending ? 'invisible' : 'visible'}>{children}</span>
       {isPending ? (
         <span className="absolute animate-spin duration-1000">
-          <Loader className="h-4 w-4 text-muted-foreground" />
+          <SpinnerIcon />
         </span>
       ) : null}
     </span>

@@ -27,7 +27,12 @@ export function CardWrapper({
       </CardHeader>
       <CardContent>{children}</CardContent>
       {showSocial && (
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-y-4">
+          <div className="relative flex w-full items-center justify-center before:absolute before:top-1/2 before:w-full before:border-t before:border-border">
+            <div className="relative bg-background px-3 text-sm font-normal text-muted-foreground">
+              OR
+            </div>
+          </div>
           <Social />
         </CardFooter>
       )}

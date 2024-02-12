@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { DangerIcon } from '@/components/icons/danger-icon'
+import { DangerousIcon } from '@/components/icons/dangerous-icon'
 import { SuccessIcon } from '@/components/icons/success-icon'
 import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
 
@@ -164,7 +164,7 @@ const FormSuccess = ({ message }: { message?: string }) => {
 
   return (
     <div className="flex items-center justify-center gap-x-1 rounded-md bg-emerald-100 p-3 text-sm text-emerald-700 dark:bg-emerald-700 dark:text-emerald-100">
-      <SuccessIcon className="h-4 w-4" />
+      <SuccessIcon className="h-4 w-4 shrink-0" />
       {_message}
     </div>
   )
@@ -178,7 +178,7 @@ const FormError = ({ message }: { message?: string }) => {
 
   return (
     <div className="flex items-center justify-center gap-x-2 rounded-md bg-red-100 p-3 text-sm text-red-700 dark:bg-destructive/50 dark:text-destructive-foreground/70">
-      <DangerIcon className="h-4 w-4 shrink-0" />
+      <DangerousIcon className="h-4 w-4 shrink-0" />
       <div className="break-all text-left">{_message}</div>
     </div>
   )

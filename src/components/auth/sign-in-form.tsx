@@ -40,7 +40,7 @@ export function SignInForm() {
 
         <FormError />
 
-        <SubmitButton type="submit">Login</SubmitButton>
+        <SubmitButton type="submit">Sign In</SubmitButton>
       </Form>
     </CardWrapper>
   )

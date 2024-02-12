@@ -49,7 +49,7 @@ export function SignUpForm() {
         <FormSuccess />
         <FormError />
 
-        <SubmitButton type="submit">Login</SubmitButton>
+        <SubmitButton type="submit">Create Account</SubmitButton>
       </Form>
     </CardWrapper>
   )

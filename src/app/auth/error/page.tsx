@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { AUTH_SIGN_IN_PATH } from '@/routes'
+import { AUTH_SIGN_IN_URL } from '@/routes'
 
 import { Card, CardFooter, CardHeader } from '@/components/ui/card'
 import { AuthHeader } from '@/components/auth/auth-header'
@@ -13,7 +13,7 @@ export default function AuthErrorPage() {
       </CardHeader>
       <CardFooter className="flex flex-col gap-y-2">
         <BackButton href="/">Back to home</BackButton>
-        <BackButton href={AUTH_SIGN_IN_PATH}>Sign In</BackButton>
+        <BackButton href={AUTH_SIGN_IN_URL}>Sign In</BackButton>
       </CardFooter>
     </Card>
   )

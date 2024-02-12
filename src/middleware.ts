@@ -1,9 +1,9 @@
 import {
   apiAuthPrefix,
-  AUTH_SIGN_IN_PATH,
+  AUTH_DEFAULT_REDIRECT_URL,
+  AUTH_SIGN_IN_URL,
   authRoutes,
   closedRoutes,
-  DEFAULT_AUTH_REDIRECT,
   publicRoutes,
 } from '@/routes'
 import NextAuth from 'next-auth'
@@ -26,18 +26,18 @@ export default auth((req) => {
   }
 
   if (isClosedRoutes) {
-    return Response.redirect(new URL(DEFAULT_AUTH_REDIRECT, nextUrl))
+    return Response.redirect(new URL(AUTH_DEFAULT_REDIRECT_URL, nextUrl))
   }
 
   if (isAuthRoutes) {
     if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_AUTH_REDIRECT, nextUrl))
+      return Response.redirect(new URL(AUTH_DEFAULT_REDIRECT_URL, nextUrl))
     }
     return
   }
 
   if (!isLoggedIn && !isPublicRoutes) {
-    return Response.redirect(new URL(AUTH_SIGN_IN_PATH, nextUrl))
+    return Response.redirect(new URL(AUTH_SIGN_IN_URL, nextUrl))
   }
 
   return

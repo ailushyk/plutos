@@ -1,12 +1,14 @@
 'use server'
 
 import { createUser, getUserByEmail } from '@/data/user'
-import { DEFAULT_AUTH_REDIRECT } from '@/routes'
+import { verificationToken } from '@/data/verification-token'
+import { AUTH_DEFAULT_REDIRECT_URL } from '@/routes'
 import { SighUpSchema, SignInSchema } from '@/schemas'
 import bcryptjs from 'bcryptjs'
 import { AuthError } from 'next-auth'
 
 import { signIn } from '@/lib/auth/auth'
+import { sendVerificationEmail } from '@/lib/auth/send-verificatioin-email'
 import { FormStateValue } from '@/components/form'
 
 export async function signInAction(
@@ -25,13 +27,32 @@ export async function signInAction(
   }
 
   const { email, password } = validatedFields.data
+  const existingUser = await getUserByEmail(email)
+  if (!(existingUser?.email && existingUser?.password)) {
+    return {
+      status: 'error',
+      message: 'Invalid credentials!',
+    }
+  }
+  if (!existingUser.emailVerified) {
+    const _token = await verificationToken.generateToken(existingUser.email)
+    await sendVerificationEmail(existingUser.email, _token?.token || '')
+    return {
+      status: 'error',
+      message: 'Please verify your email first!',
+    }
+  }
 
   try {
     await signIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_AUTH_REDIRECT,
+      redirectTo: AUTH_DEFAULT_REDIRECT_URL,
     })
+    return {
+      status: 'ok',
+      message: 'You have been successfully logged in!',
+    }
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -62,16 +83,11 @@ export async function signInAction(
      */
     throw error
   }
-
-  return {
-    status: 'ok',
-    message: 'You have been successfully logged in.',
-  }
 }
 
 export async function signInWithProviderAction(provider: 'google' | 'github') {
   await signIn(provider, {
-    callbackUrl: DEFAULT_AUTH_REDIRECT,
+    callbackUrl: AUTH_DEFAULT_REDIRECT_URL,
   })
 }
 
@@ -109,9 +125,39 @@ export async function signUpAction(
     password: hashedPassword,
   })
 
-  // TODO: send verification token email
+  const _token = await verificationToken.generateToken(email)
+  await sendVerificationEmail(email, _token?.token || '')
+
   return {
     status: 'ok',
-    message: 'You have been successfully registered.',
+    message:
+      'You have been successfully registered. Please check your email for verification.',
+  }
+}
+
+export async function verifyEmailAction(
+  prevState: any,
+  { token }: { token: string },
+) {
+  if (prevState) return prevState
+
+  try {
+    const isVerified = await verificationToken.verifyToken(token)
+    if (isVerified) {
+      return {
+        status: 'ok',
+        message: 'Your email has been verified!',
+      }
+    }
+    return {
+      status: 'error',
+      message: 'Invalid token!',
+    }
+  } catch (error) {
+    console.error('verifyEmailAction', error)
+    return {
+      status: 'error',
+      message: 'Something went wrong!',
+    }
   }
 }

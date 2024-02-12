@@ -21,7 +21,7 @@ export const {
     signIn: '/auth/sign-in',
     error: '/auth/error',
     // signOut: '/auth/signout',
-    // verifyRequest: '/auth/verify-request',
+    verifyRequest: '/auth/verify-request',
     // newUser: '/auth/new-user',
   },
   adapter: PrismaAdapter(db),
@@ -29,10 +29,9 @@ export const {
   callbacks: {
     async signIn({ user, account, ...props }) {
       if (account?.provider === 'credentials') {
-        // TODO: add email verification
-        // if (!user || !user.emailVerified) {
-        //   return false
-        // }
+        if (!user?.emailVerified) {
+          return false
+        }
       }
       return true
     },
