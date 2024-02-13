@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import { confirmUserEmail, getUserByEmail } from '@/data/user'
 
 import { db } from '@/lib/db'
 
@@ -47,17 +48,6 @@ class VerificationToken {
       return null
     }
   }
-  async confirmEmail(email: string) {
-    try {
-      return await db.user.update({
-        where: { email },
-        data: { emailVerified: new Date().toISOString() },
-      })
-    } catch (error) {
-      console.error('confirmEmail', error)
-      return null
-    }
-  }
 
   async generateToken(email: string) {
     try {
@@ -81,18 +71,40 @@ class VerificationToken {
   async verifyToken(token: string) {
     const existingToken = await this.getVerificationTokenByToken(token)
 
-    if (!existingToken) return false
+    if (!existingToken)
+      return {
+        status: 'error',
+        message: 'Token not found!',
+      }
 
     const isExpired = new Date(existingToken.expires) < new Date()
     if (isExpired) {
       await this.deleteVerificationToken(existingToken.id)
-      return false
+      return {
+        status: 'error',
+        message: 'Token expired!',
+      }
+    }
+
+    const user = await getUserByEmail(existingToken.email)
+    if (!user) {
+      await this.deleteVerificationToken(existingToken.id)
+      return {
+        status: 'error',
+        message: 'User not found!',
+      }
     }
 
     try {
-      await this.confirmEmail(existingToken.email)
+      await confirmUserEmail({
+        email: user.email!,
+        newEmail: existingToken.email,
+      })
       await this.deleteVerificationToken(existingToken.id)
-      return true
+      return {
+        status: 'ok',
+        message: 'Your email has been verified!',
+      }
     } catch (error) {
       console.error('VERIFY TOKEN ERROR: ', error)
       throw error

@@ -41,3 +41,24 @@ export const createUser = async (data: {
     return null
   }
 }
+
+export const confirmUserEmail = async ({
+  email,
+  newEmail,
+}: {
+  email: string
+  newEmail: string
+}) => {
+  try {
+    return await db.user.update({
+      where: { email },
+      data: {
+        email: newEmail,
+        emailVerified: new Date().toISOString(),
+      },
+    })
+  } catch (error) {
+    console.error('Error confirming user email', error)
+    return null
+  }
+}

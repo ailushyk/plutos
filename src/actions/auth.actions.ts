@@ -142,17 +142,7 @@ export async function verifyEmailAction(
   if (prevState) return prevState
 
   try {
-    const isVerified = await verificationToken.verifyToken(token)
-    if (isVerified) {
-      return {
-        status: 'ok',
-        message: 'Your email has been verified!',
-      }
-    }
-    return {
-      status: 'error',
-      message: 'Invalid token!',
-    }
+    return verificationToken.verifyToken(token)
   } catch (error) {
     console.error('verifyEmailAction', error)
     return {

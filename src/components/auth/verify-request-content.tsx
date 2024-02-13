@@ -25,7 +25,7 @@ export function VerifyRequestContent({ token }: { token: string }) {
         {state?.status === 'ok' ? (
           <EmailVerified />
         ) : state?.status === 'error' ? (
-          <InvalidToken />
+          <InvalidToken message={state.message} />
         ) : (
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <SpinnerIcon className="animate-spin" />
