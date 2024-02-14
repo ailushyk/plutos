@@ -19,8 +19,7 @@ import bcryptjs from 'bcryptjs'
 import { AuthError } from 'next-auth'
 
 import { signIn } from '@/lib/auth/auth'
-import { sendResetPasswordEmail } from '@/lib/auth/send-reset-password-email'
-import { sendVerificationEmail } from '@/lib/auth/send-verificatioin-email'
+import { sendResetPasswordEmail, sendVerificationEmail } from '@/lib/mail/mail'
 import { FormStateValue } from '@/components/form'
 
 export async function signInAction(
