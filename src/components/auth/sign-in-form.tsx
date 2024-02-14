@@ -1,6 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import { signInAction } from '@/actions/auth.actions'
 
+import { Button } from '@/components/ui/button'
 import { CardWrapper } from '@/components/auth/card-wrapper'
 import {
   Form,
@@ -40,7 +42,21 @@ export function SignInForm() {
 
         <FormError />
 
-        <SubmitButton type="submit">Sign In</SubmitButton>
+        <div className="flex flex-col gap-3">
+          <SubmitButton type="submit">Sign In</SubmitButton>
+          <div className="text-center">
+            <Button
+              asChild
+              size="sm"
+              variant="link"
+              className="p-0 text-xs font-normal text-muted-foreground"
+            >
+              <Link href="/auth/reset-password">
+                Forgot your password? Click here.
+              </Link>
+            </Button>
+          </div>
+        </div>
       </Form>
     </CardWrapper>
   )

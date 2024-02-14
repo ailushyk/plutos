@@ -34,3 +34,29 @@ export const SighUpSchema = z
     message: "Passwords don't match",
     path: ['passwordConfirmation'],
   })
+
+export const ResetPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, {
+      message: 'Email is required',
+    })
+    .email(),
+})
+
+export const CreateNewPasswordSchema = z
+  .object({
+    token: z.string().min(1, {
+      message: 'Token is required',
+    }),
+    password: z.string().min(4, {
+      message: 'Password must be at least 4 characters long',
+    }),
+    passwordConfirmation: z.string().min(4, {
+      message: 'Password must be at least 4 characters long',
+    }),
+  })
+  .refine((data) => data.password === data.passwordConfirmation, {
+    message: "Passwords don't match",
+    path: ['passwordConfirmation'],
+  })

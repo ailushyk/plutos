@@ -20,8 +20,8 @@ export const {
   pages: {
     signIn: '/auth/sign-in',
     error: '/auth/error',
+    // verifyRequest: '/auth/verify-request',
     // signOut: '/auth/signout',
-    verifyRequest: '/auth/verify-request',
     // newUser: '/auth/new-user',
   },
   adapter: PrismaAdapter(db),

@@ -1,13 +1,25 @@
 'use server'
 
-import { createUser, getUserByEmail } from '@/data/user'
+import { resetPasswordToken } from '@/data/reset-password-token'
+import {
+  confirmUserEmail,
+  createUser,
+  getUserByEmail,
+  updateUserPassword,
+} from '@/data/user'
 import { verificationToken } from '@/data/verification-token'
 import { AUTH_DEFAULT_REDIRECT_URL } from '@/routes'
-import { SighUpSchema, SignInSchema } from '@/schemas'
+import {
+  CreateNewPasswordSchema,
+  ResetPasswordSchema,
+  SighUpSchema,
+  SignInSchema,
+} from '@/schemas'
 import bcryptjs from 'bcryptjs'
 import { AuthError } from 'next-auth'
 
 import { signIn } from '@/lib/auth/auth'
+import { sendResetPasswordEmail } from '@/lib/auth/send-reset-password-email'
 import { sendVerificationEmail } from '@/lib/auth/send-verificatioin-email'
 import { FormStateValue } from '@/components/form'
 
@@ -142,9 +154,155 @@ export async function verifyEmailAction(
   if (prevState) return prevState
 
   try {
-    return verificationToken.verifyToken(token)
+    // return verificationToken.verifyToken(token)
+    const existingToken =
+      await verificationToken.getVerificationTokenByToken(token)
+
+    if (!existingToken)
+      return {
+        status: 'error',
+        message: 'Token not found!',
+      }
+
+    const isExpired = new Date(existingToken.expires) < new Date()
+    if (isExpired) {
+      await verificationToken.deleteVerificationToken(existingToken.id)
+      return {
+        status: 'error',
+        message: 'Token expired!',
+      }
+    }
+
+    const user = await getUserByEmail(existingToken.email)
+    if (!user) {
+      await verificationToken.deleteVerificationToken(existingToken.id)
+      return {
+        status: 'error',
+        message: 'User not found!',
+      }
+    }
+
+    try {
+      await confirmUserEmail({
+        email: user.email!,
+        newEmail: existingToken.email,
+      })
+      await verificationToken.deleteVerificationToken(existingToken.id)
+      return {
+        status: 'ok',
+        message: 'Your email has been verified!',
+      }
+    } catch (error) {
+      console.error('VERIFY TOKEN ERROR: ', error)
+      return {
+        status: 'error',
+        message: 'Something went wrong!',
+      }
+    }
   } catch (error) {
     console.error('verifyEmailAction', error)
+    return {
+      status: 'error',
+      message: 'Something went wrong!',
+    }
+  }
+}
+
+export async function resetPasswordAction(
+  prevState: any,
+  formData: FormData,
+): Promise<FormStateValue> {
+  const email = formData.get('email')
+  const validatedFields = ResetPasswordSchema.safeParse({ email })
+  if (!validatedFields.success) {
+    return {
+      status: 'error',
+      message: 'Please check the form for errors.',
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
+  const existingUser = await getUserByEmail(validatedFields.data.email)
+
+  if (existingUser?.email) {
+    if (!existingUser.password) {
+      return {
+        status: 'error',
+        message: 'Use another method to sign in!',
+      }
+    }
+    if (!existingUser.emailVerified) {
+      return {
+        status: 'error',
+        message: 'Please verify your email first!',
+      }
+    }
+    const _token = await resetPasswordToken.generateToken(existingUser.email)
+    console.log(_token)
+    await sendResetPasswordEmail({
+      email: existingUser.email,
+      token: _token?.token || '',
+    })
+  }
+
+  return {
+    status: 'ok',
+    message: 'Please check your email for further instructions.',
+  }
+}
+
+export async function createNewPasswordAction(
+  prevState: any,
+  formData: FormData,
+): Promise<FormStateValue> {
+  const data = Object.fromEntries(formData.entries())
+
+  const validatedFields = CreateNewPasswordSchema.safeParse(data)
+  if (!validatedFields.success) {
+    return {
+      status: 'error',
+      message: 'Your form has errors or token is invalid!',
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+  const { token, password } = validatedFields.data
+
+  try {
+    const existingToken = await resetPasswordToken.getTokenByToken(token)
+    if (!existingToken) {
+      return {
+        status: 'error',
+        message: 'Invalid token!',
+      }
+    }
+    if (new Date(existingToken.expires) < new Date()) {
+      return {
+        status: 'error',
+        message: 'Token has expired!',
+      }
+    }
+
+    const existingUser = await getUserByEmail(existingToken.email)
+    if (!existingUser) {
+      return {
+        status: 'error',
+        message: 'User not found!',
+      }
+    }
+
+    const hashedPassword = await bcryptjs.hash(password, 10)
+    await updateUserPassword({
+      id: existingUser.id,
+      password: hashedPassword,
+    })
+    await resetPasswordToken.deleteToken(existingToken.id)
+
+    return {
+      status: 'ok',
+      message: 'Your password has been successfully updated!',
+    }
+  } catch (error) {
+    console.error('CREATE NEW PASSWORD ACTION ERROR: ', error)
     return {
       status: 'error',
       message: 'Something went wrong!',

@@ -62,3 +62,18 @@ export const confirmUserEmail = async ({
     return null
   }
 }
+
+export const updateUserPassword = async ({
+  id,
+  password,
+}: {
+  id: string
+  password: string
+}) => {
+  return db.user.update({
+    where: { id },
+    data: {
+      password,
+    },
+  })
+}

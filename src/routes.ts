@@ -5,6 +5,7 @@
 
 export const AUTH_SIGN_IN_URL = '/auth/sign-in'
 export let AUTH_VERIFICATION_EMAIL_URL = '/auth/verify-request'
+export let AUTH_NEW_PASSWORD_URL = '/auth/new-password'
 export const AUTH_DEFAULT_REDIRECT_URL = '/dashboard'
 export const publicRoutes: string[] = ['/']
 
@@ -17,6 +18,8 @@ export const authRoutes: string[] = [
   AUTH_SIGN_IN_URL,
   '/auth/sign-up',
   AUTH_VERIFICATION_EMAIL_URL,
+  '/auth/reset-password',
+  AUTH_NEW_PASSWORD_URL,
   '/auth/error',
 ]
 

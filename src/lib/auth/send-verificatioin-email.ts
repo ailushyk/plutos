@@ -9,7 +9,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
   try {
     await resend.emails.send({
-      from: `${appConfig.appName} <onboarding@plutos.tools>`,
+      from: `${appConfig.appName} <no-reply@plutos.tools>`,
       to: [email],
       subject: 'Confirm your email',
       react: ConfirmNewAccount({ link: confirmLink }),

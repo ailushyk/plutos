@@ -73,3 +73,14 @@ model VerificationToken {
 
 //  @@unique([email, token])
 }
+
+model ResetPasswordToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String
+  expires   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, token])
+}
