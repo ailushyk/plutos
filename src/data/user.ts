@@ -1,47 +1,77 @@
 import { db } from '@/lib/db'
 
-export const getUserById = async (id: string) => {
-  try {
-    return await db.user.findUnique({
+class User {
+  create(data: { name: string; email: string; password: string }) {
+    return db.user.create({
+      data,
+    })
+  }
+  getById(id: string) {
+    return db.user.findUnique({
       where: {
         id,
       },
     })
-  } catch (error) {
-    console.error('Error getting user by id', error)
-    return null
   }
-}
-
-export const getUserByEmail = async (email: string) => {
-  try {
-    return await db.user.findUnique({
+  getByEmail(email: string) {
+    return db.user.findUnique({
       where: {
         email,
       },
     })
+  }
+  confirmEmail(email: string, newEmail: string) {
+    return db.user.update({
+      where: { email },
+      data: {
+        email: newEmail,
+        emailVerified: new Date().toISOString(),
+      },
+    })
+  }
+  updatePassword(id: string, password: string) {
+    return db.user.update({
+      where: { id },
+      data: {
+        password,
+      },
+    })
+  }
+}
+
+export const user = new User()
+
+/**
+ * @deprecated
+ */
+export const getUserByEmail = (email: string) => {
+  try {
+    return user.getByEmail(email)
   } catch (error) {
     console.error('Error getting user by id', error)
     return null
   }
 }
 
+/**
+ * @deprecated
+ */
 export const createUser = async (data: {
   name: string
   email: string
   password: string
 }) => {
   try {
-    const user = await db.user.create({
-      data,
-    })
-    return user
+    return user.create(data)
   } catch (error) {
     console.error('Error creating user', error)
     return null
   }
 }
 
+/**
+ * @deprecated
+ */
 export const confirmUserEmail = async ({
   email,
   newEmail,
@@ -50,19 +80,16 @@ export const confirmUserEmail = async ({
   newEmail: string
 }) => {
   try {
-    return await db.user.update({
-      where: { email },
-      data: {
-        email: newEmail,
-        emailVerified: new Date().toISOString(),
-      },
-    })
+    return user.confirmEmail(email, newEmail)
   } catch (error) {
     console.error('Error confirming user email', error)
     return null
   }
 }
 
+/**
+ * @deprecated
+ */
 export const updateUserPassword = async ({
   id,
   password,
@@ -70,10 +97,5 @@ export const updateUserPassword = async ({
   id: string
   password: string
 }) => {
-  return db.user.update({
-    where: { id },
-    data: {
-      password,
-    },
-  })
+  return user.updatePassword(id, password)
 }
