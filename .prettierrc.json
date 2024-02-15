@@ -6,8 +6,6 @@
     "^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",
     "",
-    "^@/assets/(.*)$",
-    "",
     "^types$",
     "^@/types/(.*)$",
     "^@/config/(.*)$",
@@ -17,6 +15,7 @@
     "^@/components/ui/(.*)$",
     "^@/components/(.*)$",
     "^@/styles/(.*)$",
+    "^@/assets/(.*)$",
     "",
     "^[./]"
   ],
