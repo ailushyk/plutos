@@ -2,6 +2,7 @@ import React from 'react'
 
 import { cn } from '@/lib/utils'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { BottomPlaceholder } from '@/components/bottom-placeholder'
 
 export const MainLayout = ({
   children,
@@ -16,13 +17,16 @@ export const MainLayout = ({
 export const Main = ({
   children,
   className,
+  wrapperClassName,
 }: {
   children: React.ReactNode
   className?: string
+  wrapperClassName?: string
 }) => {
   return (
-    <ScrollArea>
+    <ScrollArea className={cn('h-full', wrapperClassName)}>
       <main className={cn('', className)}>{children}</main>
+      <BottomPlaceholder />
     </ScrollArea>
   )
 }

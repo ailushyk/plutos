@@ -14,7 +14,7 @@ export const metadata = {
 
 export default async function WalletsPage() {
   const user = await getUser()
-  const data = await wallet.all(user.id!)
+  const data = await wallet.allByUser(user.id!)
   return (
     <MainLayout>
       <TopBar backButton backButtonHref=".">

@@ -7,6 +7,7 @@ import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 export const metadata = {
   title: 'Settings',
 }
+
 export default async function SettingsPage() {
   return (
     <MainLayout>

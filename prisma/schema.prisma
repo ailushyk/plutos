@@ -80,6 +80,7 @@ model Wallet {
   balance    Int        @default(0) @db.Int
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  Expense    Expense[]
 
   @@index([userId])
   @@index([typeId])
@@ -88,42 +89,47 @@ model Wallet {
 
 // currency model
 model Currency {
-  id        String   @id @default(uuid()) @db.VarChar(255)
-  name      String   @db.VarChar(255) @unique
-  symbol    String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid()) @db.VarChar(255)
+  name      String    @unique @db.VarChar(255)
+  symbol    String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   Wallet    Wallet[]
+  Expense   Expense[]
 
   @@index([name])
 }
 
 model WalletType {
   id        String   @id @default(uuid()) @db.VarChar(255)
-  name      String   @db.VarChar(255) @unique
+  name      String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Wallet    Wallet[]
 }
 
 model Expense {
-  id            String   @id @default(uuid()) @db.VarChar(255)
-  userId        String   @db.VarChar(255)
-  user          User     @relation(fields: [userId], references: [id])
-  category      String   @db.VarChar(255)
-  title         String   @db.VarChar(255)
-  note          String   @db.VarChar(255)
-  paymentMethod String   @db.VarChar(255)
-  currency      String   @db.VarChar(255)
-  amount        Int      @db.Int
-  paidAt        DateTime @db.DateTime
+  id         String   @id @default(uuid()) @db.VarChar(255)
+  userId     String   @db.VarChar(255)
+  user       User     @relation(fields: [userId], references: [id])
+  title      String   @db.VarChar(255)
+  note       String?  @db.VarChar(255)
+  amount     Decimal  @db.Decimal(10, 2) // 10 digits in total, 2 after the decimal point
+  currencyId String   @db.VarChar(255)
+  currency   Currency @relation(fields: [currencyId], references: [id])
+  walletId   String   @db.VarChar(255)
+  wallet     Wallet   @relation(fields: [walletId], references: [id])
+  category   String?  @db.VarChar(255)
+  dueDate    DateTime @db.DateTime
 
-  recurringStartedAt  DateTime @db.DateTime
-  recurringFinishedAt DateTime @db.DateTime
-  reccuringSequence   String   @db.VarChar(255)
+  //  recurringStartedAt  DateTime @db.DateTime
+  //  recurringFinishedAt DateTime @db.DateTime
+  //  reccuringSequence   String   @db.VarChar(255)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@index([walletId])
+  @@index([currencyId])
 }

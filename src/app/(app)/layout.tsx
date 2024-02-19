@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { wallet } from '@/data/wallets'
 
-import { getUser } from '@/lib/auth/user.server'
 import {
   AccordionContent,
   AccordionItem,
@@ -55,8 +54,7 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode
 }) {
-  const user = await getUser()
-  const wallets = await wallet.all(user.id)
+  const wallets = await wallet.all()
 
   return (
     <div className="flex h-full">
@@ -95,10 +93,30 @@ export default async function AppLayout({
                   <NavItemIcon name="focus" />
                   Focus
                 </NavItem>
-                <NavItem href="/focus">
+                <NavItem href="/settings">
                   <NavItemIcon name="settings" />
                   Settings
                 </NavItem>
+                <NavDivider />
+
+                <NavLabel>Finances</NavLabel>
+                <NavItem href="/expenses">
+                  <NavItemIcon name="layers" />
+                  My Expenses
+                </NavItem>
+                <NavItem href="/budget">
+                  <NavItemIcon name="cti" />
+                  Budget
+                </NavItem>
+                <NavDivider />
+
+                <NavLabel>Wallets</NavLabel>
+                {wallets.map((wallet) => (
+                  <NavItem key={wallet.id} href={`/wallets/${wallet.id}`}>
+                    <NavItemIcon name="space" />
+                    {wallet.name}
+                  </NavItem>
+                ))}
                 <NavDivider />
 
                 <NavLabel>Favorite</NavLabel>
@@ -114,15 +132,6 @@ export default async function AppLayout({
                   <NavItemIcon name="lib" />
                   Lib
                 </NavItem>
-                <NavDivider />
-
-                <NavLabel>Wallets</NavLabel>
-                {wallets.map((wallet) => (
-                  <NavItem key={wallet.id} href={`/wallets/${wallet.id}`}>
-                    <NavItemIcon name="space" />
-                    {wallet.name}
-                  </NavItem>
-                ))}
                 <NavDivider />
 
                 <SpacesAccordion>

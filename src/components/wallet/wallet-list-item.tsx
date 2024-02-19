@@ -10,6 +10,7 @@ export function WalletItem({
     type: {
       name: string
     }
+    balance: number
     currency: {
       name: string
     }
@@ -26,7 +27,7 @@ export function WalletItem({
         <p className="text-sm text-muted-foreground">{wallet.type.name}</p>
       </div>
       <div className="ml-auto flex flex-col items-end font-medium">
-        <div>1,999.00</div>
+        <div>{wallet.balance}</div>
         <div className="text-sm text-muted-foreground">
           {wallet.currency.name}
         </div>

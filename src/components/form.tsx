@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as LabelPrimitive from '@radix-ui/react-label'
 import { useFormState, useFormStatus } from 'react-dom'
 
@@ -22,6 +22,7 @@ type FormStateValue<TData = Record<string, any>> = {
 type FormContextValue = {
   id: string
   state: FormStateValue
+  form: React.ElementRef<'form'> | null
 }
 
 const FormContext = React.createContext<FormContextValue>(null!)
@@ -31,7 +32,11 @@ const useForm = () => {
   if (!formContext) {
     throw new Error('useForm should be used within <Form>')
   }
-  return formContext
+  const getValues = () => {
+    if (!formContext.form) return {}
+    return Object.fromEntries(new FormData(formContext.form!).entries())
+  }
+  return { ...formContext, getValues }
 }
 
 const defaultInitialState: FormStateValue = {
@@ -39,25 +44,37 @@ const defaultInitialState: FormStateValue = {
 }
 
 const Form = ({
+  children,
   action,
   initialData = defaultInitialState,
-  children,
   className,
+  onSuccess,
 }: {
+  children: React.ReactNode
   action: (
     prevState: FormStateValue,
     formData: FormData,
   ) => Promise<FormStateValue>
   initialData?: FormStateValue
-  children: React.ReactNode
   className?: string
+  onSuccess?: () => void
 }) => {
   const id = React.useId()
   const [state, formAction] = useFormState(action, initialData)
+  const ref = React.useRef<React.ElementRef<'form'>>(null)
+
+  useEffect(() => {
+    /** Reset the form when the status is ok */
+    if (state.status === 'ok') {
+      ref.current?.reset()
+      onSuccess?.()
+    }
+  }, [state.status])
 
   return (
-    <FormContext.Provider value={{ id, state }}>
+    <FormContext.Provider value={{ id, state, form: ref.current }}>
       <form
+        ref={ref}
         action={formAction}
         className={cn('flex flex-col gap-y-6', className)}
       >
