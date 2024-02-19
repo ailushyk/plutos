@@ -1,7 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { wallet } from '@/data/wallets'
 
+import { getUser } from '@/lib/auth/user.server'
 import {
   AccordionContent,
   AccordionItem,
@@ -40,13 +42,20 @@ const data = {
   ],
 }
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex h-full bg-red-900">
-      <div className="text-sm">
-        <div className="w-60" />
+export default async function AppLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const user = await getUser()
+  const wallets = await wallet.all(user.id)
 
-        <div className="fixed inset-y-0 left-0 z-10 w-60 bg-background">
+  return (
+    <div className="flex h-full">
+      <div className="text-sm">
+        <div className="hidden w-60 md:block" />
+
+        <div className="fixed inset-y-0 left-0 z-10 hidden w-60 bg-background md:block">
           <nav className="flex h-full flex-col border-r">
             <div className="flex items-center justify-between px-4 py-3">
               <div className="flex items-center gap-1">
@@ -78,14 +87,18 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <NavItemIcon name="focus" />
                   Focus
                 </NavItem>
+                <NavItem href="/focus">
+                  <NavItemIcon name="settings" />
+                  Settings
+                </NavItem>
                 <NavDivider />
 
                 <NavLabel>Favorite</NavLabel>
-                <NavItem href="/accounts/personal-account">
+                <NavItem href="/wallets/personal-account">
                   <NavItemIcon name="layers" />
                   Main Expenses
                 </NavItem>
-                <NavItem href="/accounts/personal-account">
+                <NavItem href="/wallets/personal-account">
                   <NavItemIcon name="cti" />
                   Cash Flow
                 </NavItem>
@@ -93,6 +106,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <NavItemIcon name="lib" />
                   Lib
                 </NavItem>
+                <NavDivider />
+
+                <NavLabel>Wallets</NavLabel>
+                {wallets.map((wallet) => (
+                  <NavItem key={wallet.id} href={`/wallets/${wallet.id}`}>
+                    <NavItemIcon name="space" />
+                    {wallet.name}
+                  </NavItem>
+                ))}
                 <NavDivider />
 
                 <SpacesAccordion>
@@ -115,7 +137,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                           <AccordionContent>
                             <NavGroup nested="md">
                               <NavItem
-                                href={`/accounts/${account.slug}/incomes`}
+                                href={`/wallets/${account.slug}/incomes`}
                               >
                                 <NavItemIcon
                                   name="tree"
@@ -124,7 +146,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 Incomes
                               </NavItem>
                               <NavItem
-                                href={`/accounts/${account.slug}/transactions`}
+                                href={`/wallets/${account.slug}/transactions`}
                               >
                                 <NavItemIcon
                                   name="tree"
@@ -133,7 +155,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 Transactions
                               </NavItem>
                               <NavItem
-                                href={`/accounts/${account.slug}/expenses`}
+                                href={`/wallets/${account.slug}/expenses`}
                               >
                                 <NavItemIcon
                                   name="tree"
@@ -142,7 +164,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 Expenses
                               </NavItem>
                               <NavItem
-                                href={`/accounts/${account.slug}/subscriptions`}
+                                href={`/wallets/${account.slug}/subscriptions`}
                               >
                                 <NavItemIcon
                                   name="tree"
@@ -157,19 +179,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                   actives
                                 </NavItem>
                                 <NavItem
-                                  href={`/accounts/${account.slug}/subscriptions/new`}
+                                  href={`/wallets/${account.slug}/subscriptions/new`}
                                 >
                                   new
                                 </NavItem>
                                 <NavItem
-                                  href={`/accounts/${account.slug}/subscriptions/removed`}
+                                  href={`/wallets/${account.slug}/subscriptions/removed`}
                                 >
                                   removed
                                 </NavItem>
                               </NavGroup>
 
                               <NavItem
-                                href={`/accounts/${account.slug}/planning-and-analysis`}
+                                href={`/wallets/${account.slug}/planning-and-analysis`}
                               >
                                 <NavItemIcon name="cti" />
                                 Planning & Analysis
@@ -180,27 +202,27 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 className="visible"
                               >
                                 <NavItem
-                                  href={`/accounts/${account.slug}/planning-and-analysis/budgeting-tools`}
+                                  href={`/wallets/${account.slug}/planning-and-analysis/budgeting-tools`}
                                 >
                                   budgeting tools
                                 </NavItem>
                                 <NavItem
-                                  href={`/accounts/${account.slug}/planning-and-analysis/expense-tracking`}
+                                  href={`/wallets/${account.slug}/planning-and-analysis/expense-tracking`}
                                 >
                                   expense tracking
                                 </NavItem>
                                 <NavItem
-                                  href={`/accounts/${account.slug}/planning-and-analysis/investment-analysis`}
+                                  href={`/wallets/${account.slug}/planning-and-analysis/investment-analysis`}
                                 >
                                   investment analysis
                                 </NavItem>
                                 <NavItem
-                                  href={`/accounts/${account.slug}/planning-and-analysis/financial-reporting`}
+                                  href={`/wallets/${account.slug}/planning-and-analysis/financial-reporting`}
                                 >
                                   financial reporting
                                 </NavItem>
                               </NavGroup>
-                              <NavItem href={`/accounts/${account.slug}/views`}>
+                              <NavItem href={`/wallets/${account.slug}/views`}>
                                 <NavItemIcon name="app-view" />
                                 Views
                               </NavItem>
@@ -218,7 +240,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
       </div>
-      <main className="flex-1 bg-sky-900">{children}</main>
+      <div className="flex-1">{children}</div>
     </div>
   )
 }

@@ -41,9 +41,12 @@ export const {
     //     }
     //     return token
     //   },
-    //   async session({ session, token }) {
-    //     return session
-    //   },
+    async session({ session, token }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub
+      }
+      return session
+    },
   },
   events: {
     async linkAccount({ account, user, ...props }) {

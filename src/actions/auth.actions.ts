@@ -237,7 +237,6 @@ export async function resetPasswordAction(
       }
     }
     const _token = await resetPasswordToken.generateToken(existingUser.email)
-    console.log(_token)
     await sendResetPasswordEmail({
       email: existingUser.email,
       token: _token?.token || '',

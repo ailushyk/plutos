@@ -4,7 +4,7 @@ import { User } from 'next-auth'
 
 import { signOut } from '@/lib/auth/auth'
 import { getUser } from '@/lib/auth/user.server'
-import { cn } from '@/lib/utils'
+import { cn, getAvatarFallbackTitle } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
@@ -15,12 +15,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Icon } from '@/components/ui/icon'
 
-const getInitials = (user: User) => {
+export const getInitials = (user: User) => {
   if (user?.name) {
-    return user.name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
+    return getAvatarFallbackTitle(user.name)
   }
   if (user?.email) {
     return user.email[0]
