@@ -1,6 +1,10 @@
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 import { NewWalletForm } from '@/components/wallet/new-wallet-form'
 
+export const metadata = {
+  title: 'Create New Wallet',
+}
+
 export default function CreateNewWalletPate() {
   return (
     <div>

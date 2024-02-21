@@ -1,5 +1,13 @@
 import React from 'react'
 
+export const metadata = {
+  title: {
+    default: 'Plutos',
+    template: '%s | Plutos',
+  },
+  robots: 'noindex, nofollow',
+}
+
 export default function AuthLayout({
   children,
 }: {

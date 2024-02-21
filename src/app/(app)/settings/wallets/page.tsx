@@ -8,6 +8,10 @@ import { Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 import { WalletItem } from '@/components/wallet/wallet-list-item'
 
+export const metadata = {
+  title: 'Wallets Settings',
+}
+
 export default async function WalletsPage() {
   const user = await getUser()
   const data = await wallet.all(user.id!)

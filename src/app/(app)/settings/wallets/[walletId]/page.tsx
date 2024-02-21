@@ -7,6 +7,10 @@ import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 import { DeleteWalletForm } from '@/components/wallet/delete-wallet-form'
 import { EditWalletForm } from '@/components/wallet/edit-wallet-form'
 
+export const metadata = {
+  title: 'Wallet Settings',
+}
+
 export default async function WalletPage({
   params,
 }: {

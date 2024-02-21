@@ -12,9 +12,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: {
     default: 'Plutos',
-    template: '%s | Plutos',
+    template: '%s - Plutos',
   },
   description: 'Plutos is a your personal finance manager.',
+  robots: 'index, follow',
 }
 
 export default function RootLayout({

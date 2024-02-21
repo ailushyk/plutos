@@ -4,6 +4,9 @@ import { MainLayout } from '@/components/layout/main-layout'
 import { NavList, NavListItem } from '@/components/nav/nav-list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 
+export const metadata = {
+  title: 'Settings',
+}
 export default async function SettingsPage() {
   return (
     <MainLayout>

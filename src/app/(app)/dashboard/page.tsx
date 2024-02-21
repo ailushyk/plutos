@@ -4,6 +4,10 @@ import Link from 'next/link'
 import { auth } from '@/lib/auth/auth'
 import { Button } from '@/components/ui/button'
 
+export const metadata = {
+  title: 'Dashboard',
+}
+
 async function DashboardPage() {
   const session = await auth()
   return (

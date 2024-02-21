@@ -5,6 +5,10 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { LoginButton } from '@/components/auth/login-button'
 
+export const metadata = {
+  title: 'Plutos: the new way to manage your finances',
+}
+
 const font = Poppins({ subsets: ['latin'], weight: ['600'] })
 
 export default function Home() {

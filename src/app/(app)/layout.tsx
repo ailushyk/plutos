@@ -22,6 +22,14 @@ import { SpacesAccordion } from '@/components/spaces-accordion'
 import { UserMenu } from '@/components/user-menu'
 import logoImage from '@/assets/logo.svg'
 
+export const metadata = {
+  title: {
+    default: 'Plutos',
+    template: '%s - Plutos',
+  },
+  robots: 'noindex, nofollow',
+}
+
 const data = {
   accounts: [
     {
