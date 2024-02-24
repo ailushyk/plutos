@@ -1,7 +1,7 @@
 import { currency } from '@/data/currency'
 import { wallet } from '@/data/wallets'
 
-import { AddNewExpenseForm } from '@/components/expenses/add-new-expense-form'
+import { AddNewExpenseForm } from '@/components/app/expenses/add-new-expense-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 

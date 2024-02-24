@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { signInAction } from '@/actions/auth.actions'
 
 import { Button } from '@/components/ui/button'
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { CardWrapper } from '@/components/app/auth/card-wrapper'
 import {
   Form,
   FormError,

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SignUpForm } from '@/components/auth/sign-up-form'
+import { SignUpForm } from '@/components/app/auth/sign-up-form'
 
 function SignUpPage() {
   return <SignUpForm />

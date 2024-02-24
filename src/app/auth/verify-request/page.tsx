@@ -1,6 +1,6 @@
-import { CardWrapper } from '@/components/auth/card-wrapper'
-import { InvalidToken } from '@/components/auth/invalid-token'
-import { VerifyRequestContent } from '@/components/auth/verify-request-content'
+import { CardWrapper } from '@/components/app/auth/card-wrapper'
+import { InvalidToken } from '@/components/app/auth/invalid-token'
+import { VerifyRequestContent } from '@/components/app/auth/verify-request-content'
 
 export default function VerifyRequest({
   searchParams,

@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { expense } from '@/data/expense.data'
 
 import { Button } from '@/components/ui/button'
-import { Container, Main, MainLayout } from '@/components/layout/main-layout'
+import { ExpenseItem } from '@/components/app/expenses/expense-item'
+import { Main, MainLayout } from '@/components/layout/main-layout'
+import { List, ListGroup, ListItem } from '@/components/list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 
 export const metadata = {
@@ -12,6 +14,7 @@ export const metadata = {
 
 export default async function ExpensesPage() {
   const expenses = await expense.all()
+
   return (
     <MainLayout>
       <TopBar>
@@ -23,18 +26,16 @@ export default async function ExpensesPage() {
           className="w-full flex-1"
           wrapperClassName="fade-out-bottom w-full"
         >
-          <Container>
-            <h2>Expenses</h2>
-            <div>
-              {expenses.map((item) => (
-                <div key={item.id} className="flex justify-between">
-                  <div>{item.title}</div>
-                  <div>{String(item.amount)}</div>
-                  <div>{new Date(item.dueDate).toLocaleString()}</div>
-                </div>
-              ))}
-            </div>
-          </Container>
+          <List>
+            <ListGroup>All Wallets</ListGroup>
+            {expenses.map((item) => (
+              <Link key={item.id} href="/expenses">
+                <ListItem>
+                  <ExpenseItem expense={item} />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
         </Main>
         <div className="absolute bottom-4">
           <Button asChild className="">

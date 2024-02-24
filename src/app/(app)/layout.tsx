@@ -16,7 +16,7 @@ import {
   NavItem,
   NavItemIcon,
   NavLabel,
-} from '@/components/nav'
+} from '@/components/sidebar-nav'
 import { SpacesAccordion } from '@/components/spaces-accordion'
 import { UserMenu } from '@/components/user-menu'
 import logoImage from '@/assets/logo.svg'

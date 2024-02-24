@@ -81,7 +81,7 @@ export async function UserMenu() {
         </DropdownMenu>
       ) : (
         <Link
-          href="/auth/signin"
+          href="/app/auth/signin"
           className={cn(buttonVariants({ variant: 'ghost' }))}
         >
           Sign in

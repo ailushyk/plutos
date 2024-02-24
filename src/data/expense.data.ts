@@ -13,6 +13,23 @@ class Expense {
           id: user.id,
         },
       },
+      select: {
+        id: true,
+        dueDate: true,
+        title: true,
+        amount: true,
+        currency: {
+          select: {
+            name: true,
+            symbol: true,
+          },
+        },
+        wallet: {
+          select: {
+            name: true,
+          },
+        },
+      },
       orderBy: {
         dueDate: 'desc',
       },

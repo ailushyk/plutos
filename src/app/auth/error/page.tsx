@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { AUTH_SIGN_IN_URL } from '@/routes'
 
 import { Card, CardFooter, CardHeader } from '@/components/ui/card'
-import { AuthHeader } from '@/components/auth/auth-header'
-import { BackButton } from '@/components/auth/back-button'
+import { AuthHeader } from '@/components/app/auth/auth-header'
+import { BackButton } from '@/components/app/auth/back-button'
 
 export default function AuthErrorPage() {
   return (

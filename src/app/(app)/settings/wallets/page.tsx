@@ -3,10 +3,11 @@ import { wallet } from '@/data/wallets'
 
 import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
+import { WalletItem } from '@/components/app/wallet/wallet-list-item'
 import { BottomPlaceholder } from '@/components/bottom-placeholder'
 import { Main, MainLayout } from '@/components/layout/main-layout'
+import { List, ListGroup, ListItem } from '@/components/list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
-import { WalletItem } from '@/components/wallet/wallet-list-item'
 
 export const metadata = {
   title: 'Wallets Settings',
@@ -25,20 +26,16 @@ export default async function WalletsPage() {
       </TopBar>
 
       <Main>
-        <h2 className="sticky top-0 z-10 flex h-11 items-center gap-3 border-b bg-accent px-6 py-2 text-sm font-semibold dark:bg-gray-900">
-          Active wallets
-        </h2>
-        <div className="space-y-2">
+        <List>
+          <ListGroup>Active wallets</ListGroup>
           {data.map((wallet) => (
-            <Link
-              key={wallet.id}
-              href={`wallets/${wallet.id}`}
-              className="block bg-background px-6 py-2 transition hover:bg-accent"
-            >
-              <WalletItem wallet={wallet} />
+            <Link key={wallet.id} href={`wallets/${wallet.id}`}>
+              <ListItem>
+                <WalletItem wallet={wallet} />
+              </ListItem>
             </Link>
           ))}
-        </div>
+        </List>
         <BottomPlaceholder />
       </Main>
     </MainLayout>

@@ -5,6 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const isServer = typeof window !== undefined
+
 export const getAvatarFallbackTitle = (title: string) => {
   return title
     .split(' ')

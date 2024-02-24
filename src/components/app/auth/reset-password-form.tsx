@@ -1,7 +1,7 @@
 import { resetPasswordAction } from '@/actions/auth.actions'
 import { AUTH_SIGN_IN_URL } from '@/routes'
 
-import { CardWrapper } from '@/components/auth/card-wrapper'
+import { CardWrapper } from '@/components/app/auth/card-wrapper'
 import {
   Form,
   FormError,

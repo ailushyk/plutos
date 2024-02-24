@@ -14,7 +14,7 @@ export function AuthHeader({ children }: { children: string }) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-1.5">
       <h1 className={cn('text-3xl font-semibold', font.className)}>
-        <Link href="/">{appConfig.appName}</Link>
+        <Link href="/public">{appConfig.appName}</Link>
       </h1>
       <p className="text-sm text-muted-foreground">{children}</p>
     </div>

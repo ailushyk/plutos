@@ -2,10 +2,10 @@ import NotFound from 'next/dist/client/components/not-found-error'
 import { wallet } from '@/data/wallets'
 
 import { getUser } from '@/lib/auth/user.server'
+import { DeleteWalletForm } from '@/components/app/wallet/delete-wallet-form'
+import { EditWalletForm } from '@/components/app/wallet/edit-wallet-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
-import { DeleteWalletForm } from '@/components/wallet/delete-wallet-form'
-import { EditWalletForm } from '@/components/wallet/edit-wallet-form'
 
 export const metadata = {
   title: 'Wallet Settings',
@@ -31,7 +31,7 @@ export default async function WalletPage({
       </TopBar>
 
       <Main>
-        <Container className="flex h-full max-w-lg flex-col border">
+        <Container className="flex h-full max-w-lg flex-col">
           <div className="flex-1">
             <h2 className="mb-4 mt-8 text-center text-xl font-semibold">
               Update Wallet

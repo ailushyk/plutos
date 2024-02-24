@@ -3,7 +3,7 @@ import { appConfig } from '@/app-config'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { LoginButton } from '@/components/auth/login-button'
+import { LoginButton } from '@/components/app/auth/login-button'
 
 export const metadata = {
   title: 'Plutos: the new way to manage your finances',

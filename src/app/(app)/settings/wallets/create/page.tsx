@@ -1,5 +1,5 @@
+import { NewWalletForm } from '@/components/app/wallet/new-wallet-form'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
-import { NewWalletForm } from '@/components/wallet/new-wallet-form'
 
 export const metadata = {
   title: 'Create New Wallet',

@@ -4,8 +4,8 @@ import { useCallback, useEffect } from 'react'
 import { verifyEmailAction } from '@/actions/auth.actions'
 import { useFormState } from 'react-dom'
 
-import { EmailVerified } from '@/components/auth/email-verified'
-import { InvalidToken } from '@/components/auth/invalid-token'
+import { EmailVerified } from '@/components/app/auth/email-verified'
+import { InvalidToken } from '@/components/app/auth/invalid-token'
 import { SpinnerIcon } from '@/components/icons/spinner-icon'
 
 export function VerifyRequestContent({ token }: { token: string }) {
