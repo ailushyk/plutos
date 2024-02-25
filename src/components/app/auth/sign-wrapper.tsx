@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { AuthHeader } from '@/components/app/auth/auth-header'
@@ -33,7 +33,9 @@ export function SignWrapper({
               OR
             </div>
           </div>
-          <Social />
+          <Suspense>
+            <Social />
+          </Suspense>
         </CardFooter>
       )}
       <CardFooter>
