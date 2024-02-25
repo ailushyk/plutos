@@ -14,5 +14,10 @@ export const NewExpenseSchema = z.object({
   amount: z.coerce.number().multipleOf(0.01).min(0.01, {
     message: 'Minimum amount is 0.01',
   }),
-  dueDate: z.date().default(() => new Date()),
+  dueDate: z
+    .string()
+    .default(() => new Date().toISOString())
+    .transform((val) => {
+      return new Date(val)
+    }),
 })

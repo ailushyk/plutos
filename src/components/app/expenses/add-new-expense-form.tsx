@@ -18,9 +18,11 @@ import {
 
 const defaultValues = {
   title: '',
+  note: '',
   walletId: '',
   currencyId: '',
   amount: '',
+  dueDate: new Date().toISOString(),
 }
 
 export const AddNewExpenseForm = ({
@@ -45,6 +47,14 @@ export const AddNewExpenseForm = ({
         <FormMessage />
       </FormField>
 
+      <FormField name="note">
+        <FormLabel>
+          Note <span className="text-gray-500"> (optional)</span>
+        </FormLabel>
+        <FormInput defaultValue={defaultValues.note} />
+        <FormMessage />
+      </FormField>
+
       <FormField name="walletId">
         <FormLabel>Wallet</FormLabel>
         <FormSelect>
@@ -54,6 +64,12 @@ export const AddNewExpenseForm = ({
             </option>
           ))}
         </FormSelect>
+        <FormMessage />
+      </FormField>
+
+      <FormField name="dueDate">
+        <FormLabel>Due Date</FormLabel>
+        <FormInput defaultValue={defaultValues.dueDate} />
         <FormMessage />
       </FormField>
 
