@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { expense } from '@/data/expense.data'
 
+import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
 import { ExpenseItem } from '@/components/app/expenses/expense-item'
 import { Main, MainLayout } from '@/components/layout/main-layout'
@@ -13,7 +14,10 @@ export const metadata = {
 }
 
 export default async function ExpensesPage() {
-  const expenses = await expense.all()
+  const user = await getUser()
+  const expenses = await expense.all({
+    userId: user.id,
+  })
 
   return (
     <MainLayout>

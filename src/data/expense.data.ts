@@ -1,16 +1,14 @@
 import { NewExpenseSchema } from '@/schemas/expenses.schema'
 import { z } from 'zod'
 
-import { getUser } from '@/lib/auth/user.server'
 import { db } from '@/lib/db'
 
 class Expense {
-  async all() {
-    const user = await getUser()
+  async all({ userId }: { userId: string }) {
     return db.expense.findMany({
       where: {
         user: {
-          id: user.id,
+          id: userId,
         },
       },
       select: {
@@ -35,13 +33,12 @@ class Expense {
       },
     })
   }
-  async addExpense(expense: z.infer<typeof NewExpenseSchema>) {
-    const user = await getUser()
+  async addExpense(expense: z.infer<typeof NewExpenseSchema>, userId: string) {
     return db.expense.create({
       data: {
         user: {
           connect: {
-            id: user.id,
+            id: userId,
           },
         },
         title: expense.title,

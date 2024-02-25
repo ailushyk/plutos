@@ -4,12 +4,14 @@ import { revalidatePath } from 'next/cache'
 import { expense } from '@/data/expense.data'
 import { NewExpenseSchema } from '@/schemas/expenses.schema'
 
+import { getUser } from '@/lib/auth/user.server'
 import { FormStateValue } from '@/components/form'
 
 export async function addNewExpense(
   prevState: any,
   formData: FormData,
 ): Promise<FormStateValue> {
+  const user = await getUser()
   const data = Object.fromEntries(formData.entries())
   const validatedData = NewExpenseSchema.safeParse(data)
 
@@ -22,8 +24,7 @@ export async function addNewExpense(
   }
 
   // expense
-  console.log('Add new expense', validatedData.data)
-  await expense.addExpense(validatedData.data)
+  await expense.addExpense(validatedData.data, user.id)
   revalidatePath('/expenses')
   return {
     status: 'ok',
