@@ -4,6 +4,57 @@ import { z } from 'zod'
 import { db } from '@/lib/db'
 
 class Expense {
+  async lastMonth({ userId }: { userId: string }) {
+    return db.expense.findMany({
+      where: {
+        user: {
+          id: userId,
+        },
+        dueDate: {
+          gte: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+        },
+      },
+      select: {
+        id: true,
+        dueDate: true,
+        title: true,
+        amount: true,
+        currency: {
+          select: {
+            name: true,
+            symbol: true,
+          },
+        },
+        wallet: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        dueDate: 'desc',
+      },
+    })
+  }
+  async allByDay({ userId }: { userId: string }) {
+    return db.expense.groupBy({
+      by: ['dueDate'],
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+      _count: {
+        id: true,
+      },
+      _sum: {
+        amount: true,
+      },
+      orderBy: {
+        dueDate: 'desc',
+      },
+    })
+  }
   async all({ userId }: { userId: string }) {
     return db.expense.findMany({
       where: {

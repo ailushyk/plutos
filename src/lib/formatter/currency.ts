@@ -14,8 +14,8 @@ export const formatCurrencyFromDecimal = (
   const value = Number(amount.toString())
   const hasFraction = value % 1 !== 0
   const options: Intl.NumberFormatOptions = {
-    style: 'currency',
-    currency: currency,
+    // style: 'currency',
+    // currency: currency,
     minimumFractionDigits: hasFraction ? 2 : 0,
     maximumFractionDigits: hasFraction ? 2 : 0,
   }

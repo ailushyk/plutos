@@ -30,15 +30,15 @@ export function ExpenseItem({
         <AvatarFallback>{getAvatarFallbackTitle(expense.title)}</AvatarFallback>
       </Avatar>
       <div className="ml-4 space-y-1">
-        <p className="font-medium leading-none">{expense.title}</p>
-        <p className="text-sm text-muted-foreground">{expense.wallet.name}</p>
+        <div className="font-medium leading-none">{expense.title}</div>
+        <div className="text-sm text-muted-foreground">
+          {formatDate(expense.dueDate)}
+        </div>
       </div>
       <div className="ml-auto flex flex-col items-end font-medium">
         <div>
-          {formatCurrencyFromDecimal(expense.amount, expense.currency.name)}
-        </div>
-        <div className="text-sm text-muted-foreground">
-          {formatDate(expense.dueDate)}
+          -{formatCurrencyFromDecimal(expense.amount, expense.currency.name)}{' '}
+          {expense.currency.symbol}
         </div>
       </div>
     </div>

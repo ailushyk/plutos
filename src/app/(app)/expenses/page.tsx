@@ -15,7 +15,7 @@ export const metadata = {
 
 export default async function ExpensesPage() {
   const user = await getUser()
-  const expenses = await expense.all({
+  const expenses = await expense.lastMonth({
     userId: user.id,
   })
 
