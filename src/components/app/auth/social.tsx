@@ -1,47 +1,52 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { signInWithProviderAction } from '@/actions/auth.actions'
 
-import { Button } from '@/components/ui/button'
+import { Form, FormError, SubmitButton } from '@/components/form'
 import { GithubIcon } from '@/components/icons/github-icon'
 import { GoogleIcon } from '@/components/icons/google-icon'
-import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
 
 export const Social = () => {
-  const [state, setState] = useState('')
-  const [isPending, startTransition] = useTransition()
-  const onClick = async (provider: 'google' | 'github') => {
-    setState(provider)
-    startTransition(() => {
-      signInWithProviderAction(provider)
-    })
-  }
+  const { error } = useAuthProviderError()
 
   return (
-    <div className="flex w-full flex-row items-center justify-center gap-2">
-      <Button
-        variant="outline"
-        size="lg"
-        className="w-full"
-        onClick={() => onClick('google')}
-        disabled={isPending}
-      >
-        <TextWithPendingSpinner isPending={state === 'google' && isPending}>
+    <Form action={signInWithProviderAction} className="w-full">
+      <div className="flex w-full flex-row items-center justify-center gap-2">
+        <SubmitButton
+          name="_action"
+          value="google"
+          variant="outline"
+          size="lg"
+          className="w-full"
+        >
           <GoogleIcon className="h-4 w-4" />
-        </TextWithPendingSpinner>
-      </Button>
-      <Button
-        variant="outline"
-        size="lg"
-        className="w-full"
-        onClick={() => onClick('github')}
-        disabled={isPending}
-      >
-        <TextWithPendingSpinner isPending={state === 'github' && isPending}>
+        </SubmitButton>
+        <SubmitButton
+          name="_action"
+          value="github"
+          variant="outline"
+          size="lg"
+          className="w-full"
+        >
           <GithubIcon className="h-4 w-4" />
-        </TextWithPendingSpinner>
-      </Button>
-    </div>
+        </SubmitButton>
+      </div>
+
+      <FormError message={error} />
+    </Form>
   )
+}
+
+function useAuthProviderError() {
+  const searchParams = useSearchParams()
+  let error = searchParams.get('error')
+
+  switch (error) {
+    case 'OAuthAccountNotLinked':
+      error = 'Another account already exists with the same e-mail address.'
+      break
+  }
+
+  return { error }
 }

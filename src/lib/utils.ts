@@ -13,3 +13,7 @@ export const getAvatarFallbackTitle = (title: string) => {
     .map((n) => n[0])
     .join('')
 }
+
+export function sleep(number: number) {
+  return new Promise((resolve) => setTimeout(resolve, number))
+}

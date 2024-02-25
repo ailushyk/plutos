@@ -210,16 +210,16 @@ const FormSuccess = ({ message }: { message?: string }) => {
   )
 }
 
-const FormError = ({ message }: { message?: string }) => {
+const FormError = ({ message }: { message?: string | null }) => {
   const { state } = useForm()
   const _message = message ?? state.message
 
-  if (!(state.status === 'error' && _message)) return null
+  if (!_message) return null
 
   return (
     <div className="flex items-center justify-center gap-x-2 rounded-md bg-red-100 p-3 text-sm text-red-700 dark:bg-destructive/50 dark:text-destructive-foreground/70">
       <DangerousIcon className="h-4 w-4 shrink-0" />
-      <div className="break-all text-left">{_message}</div>
+      <div className="break-words text-left">{_message}</div>
     </div>
   )
 }
@@ -236,9 +236,16 @@ const FormSection = React.forwardRef<
 })
 FormSection.displayName = 'FormSection'
 
+/**
+ * Submit button with pending state
+ *   If the form has more than one submit button,
+ *   add a name attribute '_action' to each button to identify the action
+ */
 const SubmitButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => {
-    const { pending } = useFormStatus()
+    const { pending, data } = useFormStatus()
+    const action = data?.get('_action')
+    let isLoading = action ? props.value === action && pending : pending
     return (
       <Button
         ref={ref}
@@ -246,7 +253,7 @@ const SubmitButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         size="lg"
         className={cn(
           {
-            'bg-muted text-muted-foreground': pending,
+            'bg-muted text-muted-foreground': isLoading,
           },
           className,
         )}
@@ -254,7 +261,7 @@ const SubmitButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={pending}
         {...props}
       >
-        <TextWithPendingSpinner isPending={pending}>
+        <TextWithPendingSpinner isPending={isLoading}>
           {children}
         </TextWithPendingSpinner>
       </Button>

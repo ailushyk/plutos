@@ -96,10 +96,18 @@ export async function signInAction(
   }
 }
 
-export async function signInWithProviderAction(provider: 'google' | 'github') {
+export async function signInWithProviderAction(
+  prevState: FormStateValue,
+  formData: FormData,
+): Promise<FormStateValue> {
+  const data = Object.fromEntries(formData.entries())
+  const provider = formData.get('_action') as 'google' | 'github'
   await signIn(provider, {
     callbackUrl: AUTH_DEFAULT_REDIRECT_URL,
   })
+  return {
+    status: 'ok',
+  }
 }
 
 export async function signUpAction(
