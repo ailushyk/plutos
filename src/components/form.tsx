@@ -212,7 +212,7 @@ const FormSuccess = ({ message }: { message?: string }) => {
 
 const FormError = ({ message }: { message?: string | null }) => {
   const { state } = useForm()
-  const _message = message ?? state.message
+  const _message = message ?? (state.status === 'error' && state.message)
 
   if (!_message) return null
 
