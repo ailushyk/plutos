@@ -2,7 +2,7 @@ import React from 'react'
 import { createNewPasswordAction } from '@/actions/auth.actions'
 import { AUTH_SIGN_IN_URL } from '@/routes'
 
-import { CardWrapper } from '@/components/app/auth/card-wrapper'
+import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import {
   Form,
   FormError,
@@ -21,7 +21,7 @@ export default function AuthNewPasswordPage({
   searchParams: { token: string }
 }) {
   return (
-    <CardWrapper
+    <SignWrapper
       headerLabel="Enter your new password below."
       backButtonHref={AUTH_SIGN_IN_URL}
       backButtonLabel="Back to Sign In"
@@ -46,6 +46,6 @@ export default function AuthNewPasswordPage({
 
         <SubmitButton type="submit">Reset Password</SubmitButton>
       </Form>
-    </CardWrapper>
+    </SignWrapper>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { signUpAction } from '@/actions/auth.actions'
 
-import { CardWrapper } from '@/components/app/auth/card-wrapper'
+import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import {
   Form,
   FormError,
@@ -16,7 +16,7 @@ import {
 
 export function SignUpForm() {
   return (
-    <CardWrapper
+    <SignWrapper
       headerLabel="Create an Account"
       backButtonLabel="Already have an account? Sign in here."
       backButtonHref="/auth/sign-in"
@@ -51,6 +51,6 @@ export function SignUpForm() {
 
         <SubmitButton type="submit">Create Account</SubmitButton>
       </Form>
-    </CardWrapper>
+    </SignWrapper>
   )
 }

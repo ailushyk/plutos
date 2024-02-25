@@ -1,7 +1,7 @@
 import { resetPasswordAction } from '@/actions/auth.actions'
 import { AUTH_SIGN_IN_URL } from '@/routes'
 
-import { CardWrapper } from '@/components/app/auth/card-wrapper'
+import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import {
   Form,
   FormError,
@@ -16,7 +16,7 @@ import {
 
 export const ResetPasswordForm = () => {
   return (
-    <CardWrapper
+    <SignWrapper
       headerLabel="Reset Password"
       backButtonLabel="Remember your password? Sign in here."
       backButtonHref={AUTH_SIGN_IN_URL}
@@ -36,6 +36,6 @@ export const ResetPasswordForm = () => {
 
         <SubmitButton type="submit">Reset Password</SubmitButton>
       </Form>
-    </CardWrapper>
+    </SignWrapper>
   )
 }

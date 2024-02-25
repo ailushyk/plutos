@@ -1,5 +1,5 @@
-import { CardWrapper } from '@/components/app/auth/card-wrapper'
 import { InvalidToken } from '@/components/app/auth/invalid-token'
+import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import { VerifyRequestContent } from '@/components/app/auth/verify-request-content'
 
 export default function VerifyRequest({
@@ -10,7 +10,7 @@ export default function VerifyRequest({
   }
 }) {
   return (
-    <CardWrapper
+    <SignWrapper
       headerLabel="Confirming your email address"
       backButtonLabel="Back to login"
       backButtonHref="/login"
@@ -20,6 +20,6 @@ export default function VerifyRequest({
       ) : (
         <InvalidToken />
       )}
-    </CardWrapper>
+    </SignWrapper>
   )
 }

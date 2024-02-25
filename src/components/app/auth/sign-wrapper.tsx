@@ -13,7 +13,7 @@ interface CardWrapperProps {
   showSocial?: boolean
 }
 
-export function CardWrapper({
+export function SignWrapper({
   children,
   headerLabel,
   backButtonLabel,

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { signInAction } from '@/actions/auth.actions'
 
 import { Button } from '@/components/ui/button'
-import { CardWrapper } from '@/components/app/auth/card-wrapper'
+import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import {
   Form,
   FormError,
@@ -18,7 +18,7 @@ import {
 
 export function SignInForm() {
   return (
-    <CardWrapper
+    <SignWrapper
       headerLabel="Welcome Back"
       backButtonLabel="Don't have an account? Sign up here."
       backButtonHref="/auth/sign-up"
@@ -58,6 +58,6 @@ export function SignInForm() {
           </div>
         </div>
       </Form>
-    </CardWrapper>
+    </SignWrapper>
   )
 }
