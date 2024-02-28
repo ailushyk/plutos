@@ -18,7 +18,7 @@ export const Social = () => {
           value="google"
           variant="outline"
           size="lg"
-          className="w-full"
+          className="hidden w-full"
         >
           <GoogleIcon className="h-4 w-4" />
         </SubmitButton>

@@ -7,7 +7,9 @@ import Google from 'next-auth/providers/google'
 
 export const authConfig = {
   providers: [
-    GitHub,
+    GitHub({
+      allowDangerousEmailAccountLinking: true,
+    }),
     Google,
     Credentials({
       id: 'credentials',
