@@ -93,6 +93,7 @@ class Expense {
           },
         },
         title: expense.title,
+        note: expense.note,
         wallet: {
           connect: {
             id: expense.walletId,
@@ -105,6 +106,34 @@ class Expense {
           },
         },
         dueDate: expense.dueDate,
+      },
+    })
+  }
+  async getById({ id, userId }: { id: string; userId: string }) {
+    return db.expense.findFirst({
+      where: {
+        id,
+        user: {
+          id: userId,
+        },
+      },
+      select: {
+        id: true,
+        dueDate: true,
+        title: true,
+        note: true,
+        amount: true,
+        currency: {
+          select: {
+            name: true,
+            symbol: true,
+          },
+        },
+        wallet: {
+          select: {
+            name: true,
+          },
+        },
       },
     })
   }

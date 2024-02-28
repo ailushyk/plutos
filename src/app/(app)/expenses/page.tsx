@@ -33,7 +33,7 @@ export default async function ExpensesPage() {
           <List>
             <ListGroup>All Wallets</ListGroup>
             {expenses.map((item) => (
-              <Link key={item.id} href="/expenses">
+              <Link key={item.id} href={`/expenses/${item.id}`}>
                 <ListItem>
                   <ExpenseItem expense={item} />
                 </ListItem>
