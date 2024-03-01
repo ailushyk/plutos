@@ -1,9 +1,22 @@
 import React from 'react'
 
-export const EmptyList = ({ children }: { children: React.ReactNode }) => {
+import { cn } from '@/lib/utils'
+
+export const EmptyList = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) => {
   return (
-    <div className="flex h-full flex-col items-center justify-center p-6">
-      <p className="text-gray-400">{children}</p>
+    <div
+      className={cn(
+        'flex h-full flex-col items-center justify-center gap-6 p-6 text-muted-foreground',
+        className,
+      )}
+    >
+      {children}
     </div>
   )
 }

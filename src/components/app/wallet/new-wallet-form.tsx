@@ -1,6 +1,7 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import { createWalletAction } from '@/actions/wallet.actions'
-import { currency } from '@/data/currency'
-import { wallet } from '@/data/wallets'
 
 import {
   Form,
@@ -15,11 +16,21 @@ import {
   SubmitButton,
 } from '@/components/form'
 
-export const NewWalletForm = async () => {
-  const currencyOptions = await currency.all()
-  const typeOptions = await wallet.types()
+export const NewWalletForm = async ({
+  types,
+  currencies,
+}: {
+  types: any[]
+  currencies: any[]
+}) => {
+  const router = useRouter()
   return (
-    <Form action={createWalletAction}>
+    <Form
+      action={createWalletAction}
+      onSuccess={() => {
+        router.back()
+      }}
+    >
       <FormSection>
         <input
           type="hidden"
@@ -34,9 +45,9 @@ export const NewWalletForm = async () => {
         <FormField name="currency">
           <FormLabel>Currency</FormLabel>
           <FormSelect>
-            {currencyOptions.map((currency) => (
-              <option key={currency.id} value={currency.id}>
-                {currency.name}
+            {currencies.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
               </option>
             ))}
           </FormSelect>
@@ -45,9 +56,9 @@ export const NewWalletForm = async () => {
         <FormField name="type">
           <FormLabel>Type</FormLabel>
           <FormSelect>
-            {typeOptions.map((currency) => (
-              <option key={currency.id} value={currency.id}>
-                {currency.name}
+            {types.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
               </option>
             ))}
           </FormSelect>

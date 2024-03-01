@@ -20,9 +20,9 @@ export default async function WalletsPage() {
   return (
     <MainLayout>
       <TopBar backButton backButtonHref=".">
-        <TopBarTitle>Settings Wallets</TopBarTitle>
+        <TopBarTitle>Wallets</TopBarTitle>
         <Button asChild variant="outline">
-          <Link href="/settings/wallets/add">Add</Link>
+          <Link href="/wallets/add">Add</Link>
         </Button>
       </TopBar>
 

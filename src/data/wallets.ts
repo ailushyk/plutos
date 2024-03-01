@@ -111,6 +111,7 @@ class Wallet {
             name: true,
           },
         },
+        createdAt: true,
       },
     })
   }

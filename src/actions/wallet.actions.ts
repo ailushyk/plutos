@@ -25,7 +25,10 @@ export async function createWalletAction(
   }
 
   await wallet.create(validatedFields.data, user.id!)
-  redirect('/settings/wallets')
+  revalidatePath('/')
+  return {
+    status: 'ok',
+  }
 }
 
 export async function deleteWalletAction(

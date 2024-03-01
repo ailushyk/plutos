@@ -110,14 +110,18 @@ export default async function AppLayout({
                 </NavItem>
                 <NavDivider />
 
-                <NavLabel>Wallets</NavLabel>
-                {wallets.map((wallet) => (
-                  <NavItem key={wallet.id} href={`/wallets/${wallet.id}`}>
-                    <NavItemIcon name="space" />
-                    {wallet.name}
-                  </NavItem>
-                ))}
-                <NavDivider />
+                {wallets.length > 0 && (
+                  <>
+                    <NavLabel>Wallets</NavLabel>
+                    {wallets.map((wallet) => (
+                      <NavItem key={wallet.id} href={`/wallets/${wallet.id}`}>
+                        <NavItemIcon name="space" />
+                        {wallet.name}
+                      </NavItem>
+                    ))}
+                    <NavDivider />
+                  </>
+                )}
 
                 <NavLabel>Favorite</NavLabel>
                 <NavItem href="/wallets/personal-account">

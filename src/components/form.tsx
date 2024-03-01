@@ -69,7 +69,7 @@ const Form = ({
       ref.current?.reset()
       onSuccess?.()
     }
-  }, [state.status])
+  }, [onSuccess, state.status])
 
   return (
     <FormContext.Provider value={{ id, state, form: ref.current }}>
