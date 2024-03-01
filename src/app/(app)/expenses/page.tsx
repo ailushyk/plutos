@@ -4,6 +4,7 @@ import { expense } from '@/data/expense.data'
 
 import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
+import { EmptyList } from '@/components/app/empty-list'
 import { ExpenseItem } from '@/components/app/expenses/expense-item'
 import { Main, MainLayout } from '@/components/layout/main-layout'
 import { List, ListGroup, ListItem } from '@/components/list'
@@ -40,6 +41,14 @@ export default async function ExpensesPage() {
               </Link>
             ))}
           </List>
+
+          {expenses.length === 0 ? (
+            <EmptyList>
+              You don&apos;t have any expenses yet.
+              <br />
+              Add a new expense to get started!
+            </EmptyList>
+          ) : null}
         </Main>
         <div className="absolute bottom-4">
           <Button asChild className="">
