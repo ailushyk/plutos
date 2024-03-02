@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { expense } from '@/data/expense.data'
 import { ExpenseSchemaForm } from '@/schemas/expenses.schema'
 
@@ -29,4 +30,23 @@ export async function addOrUpdateExpense(
     status: 'ok',
     message: 'Expense added successfully',
   }
+}
+
+export async function deleteExpense(
+  prevState: any,
+  formData: FormData,
+): Promise<FormStateValue> {
+  const user = await getUser()
+  const id = formData.get('id') as string
+
+  try {
+    await expense.delete(id, user.id)
+  } catch (error) {
+    return {
+      status: 'error',
+      message: 'Something went wrong',
+    }
+  }
+  revalidatePath('/expenses')
+  redirect('/expenses')
 }

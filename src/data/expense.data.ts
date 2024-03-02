@@ -155,6 +155,17 @@ class Expense {
       },
     })
   })
+
+  async delete(id: string, userId: string) {
+    return db.expense.delete({
+      where: {
+        id: id,
+        user: {
+          id: userId,
+        },
+      },
+    })
+  }
 }
 
 export const expense = new Expense()

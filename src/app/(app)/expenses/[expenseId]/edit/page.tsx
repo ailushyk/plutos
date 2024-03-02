@@ -8,6 +8,7 @@ import { ExpenseSchema, ExpenseSchemaForm } from '@/schemas/expenses.schema'
 
 import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
+import { DeleteExpenseForm } from '@/components/app/expenses/delete-expense-form'
 import { ExpenseForm } from '@/components/app/expenses/expense-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
@@ -49,12 +50,13 @@ export default async function EditExpense({
         <TopBarTitle>Edit Expense</TopBarTitle>
       </TopBar>
       <Main>
-        <Container className="pt-8">
+        <Container className="space-y-8 pt-8">
           <ExpenseForm
             initValues={initValues}
             wallets={wallets}
             currencies={currencies}
           />
+          <DeleteExpenseForm expenseId={initValues.id!} />
         </Container>
       </Main>
     </MainLayout>
