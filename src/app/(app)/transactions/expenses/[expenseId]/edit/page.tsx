@@ -46,7 +46,10 @@ export default async function EditExpense({
 
   return (
     <MainLayout>
-      <TopBar backButton backButtonHref="/expenses">
+      <TopBar
+        backButton
+        backButtonHref={`/transactions/expenses/${params.expenseId}`}
+      >
         <TopBarTitle>Edit Expense</TopBarTitle>
       </TopBar>
       <Main>

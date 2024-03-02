@@ -1,4 +1,5 @@
 import React from 'react'
+import { Viewport } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { wallet } from '@/data/wallets'
@@ -27,6 +28,15 @@ export const metadata = {
     template: '%s - Plutos',
   },
   robots: 'noindex, nofollow',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  // Also supported by less commonly used
+  // interactiveWidget: 'resizes-visual',
 }
 
 const data = {
@@ -80,7 +90,6 @@ export default async function AppLayout({
                   lutos
                 </Link>
               </div>
-              <UserMenu />
             </div>
 
             <ScrollArea>
@@ -100,7 +109,7 @@ export default async function AppLayout({
                 <NavDivider />
 
                 <NavLabel>Finances</NavLabel>
-                <NavItem href="/expenses">
+                <NavItem href="/transactions/expenses">
                   <NavItemIcon name="layers" />
                   My Expenses
                 </NavItem>

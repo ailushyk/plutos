@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from '@/components/icons/chevron-left-icon'
+import { TransactionsMenuIcon } from '@/components/icons/transactions-menu-icon'
 
 const TopBar = ({
   children,

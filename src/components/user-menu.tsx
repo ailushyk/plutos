@@ -13,7 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Icon } from '@/components/ui/icon'
+import { Icon } from '@/components/icons/icon'
 
 export const getInitials = (user: User) => {
   if (user?.name) {

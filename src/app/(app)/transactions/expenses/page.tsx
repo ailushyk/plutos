@@ -22,7 +22,7 @@ export default async function ExpensesPage() {
 
   return (
     <MainLayout>
-      <TopBar>
+      <TopBar backButton backButtonHref="/transactions">
         <TopBarTitle>Expenses</TopBarTitle>
       </TopBar>
 
@@ -34,7 +34,7 @@ export default async function ExpensesPage() {
           <List>
             <ListGroup>All Wallets</ListGroup>
             {expenses.map((item) => (
-              <Link key={item.id} href={`/expenses/${item.id}`}>
+              <Link key={item.id} href={`/transactions/expenses/${item.id}`}>
                 <ListItem>
                   <ExpenseItem expense={item} />
                 </ListItem>
@@ -52,7 +52,7 @@ export default async function ExpensesPage() {
         </Main>
         <div className="absolute bottom-4">
           <Button asChild className="">
-            <Link href="/expenses/add">New Expense</Link>
+            <Link href="expenses/add">New Expense</Link>
           </Button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { wallet } from '@/data/wallets'
 import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
 import { EmptyList } from '@/components/app/empty-list'
+import { MainMobileNav } from '@/components/app/main-mobile-nav'
 import { WalletItem } from '@/components/app/wallet/wallet-list-item'
 import { BottomPlaceholder } from '@/components/bottom-placeholder'
 import { Main, MainLayout } from '@/components/layout/main-layout'
@@ -19,7 +20,7 @@ export default async function WalletsPage() {
   const wallets = await wallet.allByUser(user.id!)
   return (
     <MainLayout>
-      <TopBar backButton backButtonHref=".">
+      <TopBar>
         <TopBarTitle>Wallets</TopBarTitle>
         <Button asChild variant="outline">
           <Link href="/wallets/add">Add</Link>
@@ -48,6 +49,7 @@ export default async function WalletsPage() {
         )}
         <BottomPlaceholder />
       </Main>
+      <MainMobileNav />
     </MainLayout>
   )
 }

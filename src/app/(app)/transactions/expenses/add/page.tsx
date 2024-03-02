@@ -14,7 +14,7 @@ export default async function AddNewExpense() {
   ])
   return (
     <MainLayout>
-      <TopBar backButton backButtonHref="/expenses">
+      <TopBar backButton backButtonHref="/transactions/expenses">
         <TopBarTitle>New Expense</TopBarTitle>
       </TopBar>
       <Main>

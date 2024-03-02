@@ -30,10 +30,12 @@ export default async function ExpenseViewPage({
 
   return (
     <MainLayout>
-      <TopBar backButton backButtonHref="/expenses">
+      <TopBar backButton backButtonHref="/transactions/expenses">
         <TopBarTitle>Expense</TopBarTitle>
         <Button asChild variant="outline">
-          <Link href={`/expenses/${params.expenseId}/edit`}>Edit</Link>
+          <Link href={`/transactions/expenses/${params.expenseId}/edit`}>
+            Edit
+          </Link>
         </Button>
       </TopBar>
       <Main>

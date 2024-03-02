@@ -1,8 +1,10 @@
 import React from 'react'
 
+import { MainMobileNav } from '@/components/app/main-mobile-nav'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { NavList, NavListItem } from '@/components/nav/nav-list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
+import { UserMenu } from '@/components/user-menu'
 
 export const metadata = {
   title: 'Settings',
@@ -11,11 +13,12 @@ export const metadata = {
 export default async function SettingsPage() {
   return (
     <MainLayout>
-      <TopBar backButton backButtonHref="/dashboard">
+      <TopBar>
         <TopBarTitle>Settings</TopBarTitle>
+        <UserMenu />
       </TopBar>
       <Main>
-        <Container className="max-w-lg pt-8">
+        <Container className="pt-8">
           <NavList>
             <NavListItem
               title="Wallets"
@@ -45,6 +48,7 @@ export default async function SettingsPage() {
           </NavList>
         </Container>
       </Main>
+      <MainMobileNav />
     </MainLayout>
   )
 }

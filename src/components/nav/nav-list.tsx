@@ -18,7 +18,7 @@ export const NavListItem = ({
   return (
     <Link
       href={href}
-      className="h-11 rounded-md bg-background px-3 py-2 transition hover:bg-accent"
+      className="h-11 rounded-md bg-background py-2 transition hover:bg-accent"
     >
       <div className="flex items-center justify-between rounded-md">
         <div className="ml-4 space-y-1">

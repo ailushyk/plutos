@@ -34,7 +34,7 @@ export const ExpenseForm = ({
       action={addOrUpdateExpense}
       className="m-auto max-w-sm"
       onSuccess={() => {
-        router.push('/expenses')
+        router.push('/transactions/expenses')
       }}
     >
       <input type="hidden" name="id" value={initValues?.id} />
