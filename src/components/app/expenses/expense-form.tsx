@@ -52,28 +52,14 @@ export const ExpenseForm = ({
         <FormMessage />
       </FormField>
 
-      <FormField name="walletId">
-        <FormLabel>Wallet</FormLabel>
-        <FormSelect>
-          {wallets.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </FormSelect>
-        <FormMessage />
-      </FormField>
-
-      <FormField name="dueDate">
-        <FormLabel>Due Date</FormLabel>
-        <FormInput defaultValue={initValues?.dueDate?.toString()} />
-        <FormMessage />
-      </FormField>
-
       <div className="grid grid-flow-col gap-6">
         <FormField name="amount">
           <FormLabel>Amount</FormLabel>
-          <FormInput defaultValue={initValues?.amount} />
+          <FormInput
+            type="number"
+            step=".01"
+            defaultValue={initValues?.amount}
+          />
           <FormMessage />
         </FormField>
 
@@ -89,6 +75,24 @@ export const ExpenseForm = ({
           <FormMessage />
         </FormField>
       </div>
+
+      <FormField name="walletId">
+        <FormLabel>Wallet</FormLabel>
+        <FormSelect>
+          {wallets.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </FormSelect>
+        <FormMessage />
+      </FormField>
+
+      <FormField name="dueDate">
+        <FormLabel>Due Date</FormLabel>
+        <FormInput type="date" defaultValue={initValues?.dueDate?.toString()} />
+        <FormMessage />
+      </FormField>
 
       <FormSuccess />
       <FormError />

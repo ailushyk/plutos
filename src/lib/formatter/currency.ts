@@ -4,7 +4,7 @@ import { Decimal } from '@prisma/client/runtime/binary'
 import { userLocale } from '@/lib/user-locale/user-locale'
 
 export const formatCurrency = (
-  amount: Decimal,
+  amount: Decimal | number | string,
   options?: {
     style?: 'decimal' | 'currency' | 'percent' | 'unit'
     currency?: string

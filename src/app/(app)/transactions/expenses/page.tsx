@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { expense } from '@/data/expense.data'
 
 import { getUser } from '@/lib/auth/user.server'
+import { formatCurrency } from '@/lib/formatter/currency'
 import { Button } from '@/components/ui/button'
 import { EmptyList } from '@/components/app/empty-list'
 import { ExpenseItem } from '@/components/app/expenses/expense-item'
@@ -19,6 +20,7 @@ export default async function ExpensesPage() {
   const expenses = await expense.lastMonth({
     userId: user.id,
   })
+  const total = expenses.reduce((acc, item) => acc - Number(item.amount), 0)
 
   return (
     <MainLayout>
@@ -32,7 +34,10 @@ export default async function ExpensesPage() {
           wrapperClassName="fade-out-bottom w-full"
         >
           <List>
-            <ListGroup>All Wallets</ListGroup>
+            <ListGroup className="flex justify-between">
+              <div>All Wallets</div>
+              <div>{formatCurrency(total)} PLN</div>
+            </ListGroup>
             {expenses.map((item) => (
               <Link key={item.id} href={`/transactions/expenses/${item.id}`}>
                 <ListItem>

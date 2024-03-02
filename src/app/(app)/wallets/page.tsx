@@ -23,7 +23,7 @@ export default async function WalletsPage() {
       <TopBar>
         <TopBarTitle>Wallets</TopBarTitle>
         <Button asChild variant="outline">
-          <Link href="/wallets/add">Add</Link>
+          <Link href="/settings/wallets/add">Add</Link>
         </Button>
       </TopBar>
 
