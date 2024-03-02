@@ -1,7 +1,6 @@
 import crypto from 'crypto'
 
 import { db } from '@/lib/db'
-import { FormStateValue } from '@/components/form'
 
 class ResetPasswordToken {
   private createToken(data: { expires: string; email: string; token: string }) {

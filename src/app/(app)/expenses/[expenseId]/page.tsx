@@ -1,11 +1,23 @@
+import { Metadata, ResolvingMetadata } from 'next'
 import NotFound from 'next/dist/client/components/not-found-error'
+import Link from 'next/link'
 import { expense } from '@/data/expense.data'
 
 import { getUser } from '@/lib/auth/user.server'
-import { formatCurrencyFromDecimal } from '@/lib/formatter/currency'
+import { formatCurrency } from '@/lib/formatter/currency'
 import { formatDate } from '@/lib/formatter/dates'
+import { Button } from '@/components/ui/button'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
+
+export async function generateMetadata(
+  { params }: { params: { expenseId: string } },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const user = await getUser()
+  const data = await expense.getById(params.expenseId, user.id)
+  return { title: data?.title }
+}
 
 export default async function ExpenseViewPage({
   params,
@@ -13,16 +25,16 @@ export default async function ExpenseViewPage({
   params: { expenseId: string }
 }) {
   const user = await getUser()
-  const data = await expense.getById({
-    id: params.expenseId,
-    userId: user.id,
-  })
+  const data = await expense.getById(params.expenseId, user.id)
   if (!data) return NotFound()
 
   return (
     <MainLayout>
       <TopBar backButton backButtonHref="/expenses">
         <TopBarTitle>Expense</TopBarTitle>
+        <Button asChild variant="outline">
+          <Link href={`/expenses/${params.expenseId}/edit`}>Edit</Link>
+        </Button>
       </TopBar>
       <Main>
         <Container className="space-y-4 pt-8">
@@ -32,16 +44,20 @@ export default async function ExpenseViewPage({
               {formatDate(new Date(data.dueDate))}
             </time>
           </header>
-          <div className="flex items-baseline gap-1">
+          <div className="flex flex-col items-baseline gap-1">
             <div>
-              {formatCurrencyFromDecimal(data.amount, data.currency.name)}
+              {formatCurrency(data.amount, {})} {data.currency.symbol}
             </div>
-            <div>{data.currency.symbol}</div>
             <div className="text-sm text-muted-foreground">
-              {data.wallet.name} wallet
+              from {data.wallet.name} wallet
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">{data.note}</p>
+          {data.note ? (
+            <div>
+              <h3 className="text-sm text-muted-foreground">Note:</h3>
+              <p>{data.note}</p>
+            </div>
+          ) : null}
         </Container>
       </Main>
     </MainLayout>

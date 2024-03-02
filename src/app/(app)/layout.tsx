@@ -23,7 +23,7 @@ import logoImage from '@/assets/logo.svg'
 
 export const metadata = {
   title: {
-    default: 'Plutos',
+    default: 'Personal Finance Manager',
     template: '%s - Plutos',
   },
   robots: 'noindex, nofollow',

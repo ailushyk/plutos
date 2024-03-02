@@ -1,8 +1,10 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { addNewExpense } from '@/actions/expenses.actions'
+import { addOrUpdateExpense } from '@/actions/expenses.actions'
+import { ExpenseSchemaForm } from '@/schemas/expenses.schema'
 import { Currency, Wallet } from '@prisma/client'
+import { z } from 'zod'
 
 import {
   Form,
@@ -16,34 +18,29 @@ import {
   SubmitButton,
 } from '@/components/form'
 
-const defaultValues = {
-  title: '',
-  note: '',
-  walletId: '',
-  currencyId: '',
-  amount: '',
-  dueDate: new Date().toISOString(),
-}
-
-export const AddNewExpenseForm = ({
+export const ExpenseForm = ({
+  initValues,
   wallets,
   currencies,
 }: {
+  initValues?: z.infer<typeof ExpenseSchemaForm>
   wallets: Wallet[]
   currencies: Currency[]
 }) => {
   const router = useRouter()
+
   return (
     <Form
-      action={addNewExpense}
+      action={addOrUpdateExpense}
       className="m-auto max-w-sm"
       onSuccess={() => {
         router.push('/expenses')
       }}
     >
+      <input type="hidden" name="id" value={initValues?.id} />
       <FormField name="title">
         <FormLabel>Title</FormLabel>
-        <FormInput defaultValue={defaultValues.title} />
+        <FormInput defaultValue={initValues?.title} />
         <FormMessage />
       </FormField>
 
@@ -51,7 +48,7 @@ export const AddNewExpenseForm = ({
         <FormLabel>
           Note <span className="text-gray-500"> (optional)</span>
         </FormLabel>
-        <FormInput defaultValue={defaultValues.note} />
+        <FormInput defaultValue={initValues?.note} />
         <FormMessage />
       </FormField>
 
@@ -69,14 +66,14 @@ export const AddNewExpenseForm = ({
 
       <FormField name="dueDate">
         <FormLabel>Due Date</FormLabel>
-        <FormInput defaultValue={defaultValues.dueDate} />
+        <FormInput defaultValue={initValues?.dueDate?.toString()} />
         <FormMessage />
       </FormField>
 
       <div className="grid grid-flow-col gap-6">
         <FormField name="amount">
           <FormLabel>Amount</FormLabel>
-          <FormInput defaultValue={defaultValues.amount} />
+          <FormInput defaultValue={initValues?.amount} />
           <FormMessage />
         </FormField>
 

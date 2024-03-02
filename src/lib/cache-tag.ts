@@ -1,4 +1,4 @@
-export const cache = {
+export const cacheTag = {
   wallet: {
     all() {
       return 'all-wallets'

@@ -40,7 +40,7 @@ export default async function WalletsPage() {
 
         {wallets.length === 0 && (
           <EmptyList>
-            <p>You don't have any wallets yet.</p>
+            <p>You don&apos;t have any wallets yet.</p>
             <Button asChild variant="default">
               <Link href="/wallets/add">Create Wallet</Link>
             </Button>
