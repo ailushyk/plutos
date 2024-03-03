@@ -34,7 +34,7 @@ export const ExpenseForm = ({
       action={addOrUpdateExpense}
       className="m-auto max-w-sm"
       onSuccess={() => {
-        router.push('/transactions/expenses')
+        router.back()
       }}
     >
       <input type="hidden" name="id" value={initValues?.id} />
@@ -49,6 +49,28 @@ export const ExpenseForm = ({
           Note <span className="text-gray-500"> (optional)</span>
         </FormLabel>
         <FormInput defaultValue={initValues?.note} />
+        <FormMessage />
+      </FormField>
+
+      <FormField name="walletId">
+        <FormLabel>Wallet</FormLabel>
+        <FormSelect defaultValue={initValues?.walletId}>
+          {wallets.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </FormSelect>
+        <FormMessage />
+      </FormField>
+
+      <FormField name="dueDate">
+        <FormLabel>Due Date</FormLabel>
+        <FormInput
+          type="date"
+          defaultValue={initValues?.dueDate.toISOString().substring(0, 10)}
+          className="block"
+        />
         <FormMessage />
       </FormField>
 
@@ -76,27 +98,9 @@ export const ExpenseForm = ({
         </FormField>
       </div>
 
-      <FormField name="walletId">
-        <FormLabel>Wallet</FormLabel>
-        <FormSelect>
-          {wallets.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </FormSelect>
-        <FormMessage />
-      </FormField>
-
-      <FormField name="dueDate">
-        <FormLabel>Due Date</FormLabel>
-        <FormInput type="date" defaultValue={initValues?.dueDate?.toString()} />
-        <FormMessage />
-      </FormField>
-
       <FormSuccess />
       <FormError />
-      <SubmitButton>add</SubmitButton>
+      <SubmitButton>{initValues?.id ? 'Update' : 'Add'}</SubmitButton>
     </Form>
   )
 }

@@ -34,11 +34,8 @@ export const ExpenseSchemaForm = z.object({
   amount: z.coerce.number().multipleOf(0.01).min(0.01, {
     message: 'Minimum amount is 0.01',
   }),
-  dueDate: z
-    .string()
-    .default(() => new Date().toISOString())
-    .transform((val) => {
-      return val ? new Date(val) : new Date()
-    }),
+  dueDate: z.string().transform((val) => {
+    return val ? new Date(val) : new Date()
+  }),
   // dueDate: z.date().optional().default(new Date()),
 })

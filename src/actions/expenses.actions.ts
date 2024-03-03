@@ -25,7 +25,7 @@ export async function addOrUpdateExpense(
   }
 
   await expense.createOrUpdate(validatedData.data, user.id)
-  revalidatePath('/expenses')
+  revalidatePath('/transactions')
   return {
     status: 'ok',
     message: 'Expense added successfully',
@@ -47,6 +47,6 @@ export async function deleteExpense(
       message: 'Something went wrong',
     }
   }
-  revalidatePath('/expenses')
-  redirect('/expenses')
+  revalidatePath('/transactions')
+  redirect('/transactions/expenses')
 }
