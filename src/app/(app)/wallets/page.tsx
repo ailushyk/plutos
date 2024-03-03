@@ -12,7 +12,7 @@ import { List, ListGroup, ListItem } from '@/components/list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 
 export const metadata = {
-  title: 'Wallets Settings',
+  title: 'Wallets',
 }
 
 export default async function WalletsPage() {

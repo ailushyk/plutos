@@ -1,3 +1,5 @@
+import { cache } from 'react'
+
 import { auth } from '@/lib/auth/auth'
 import { getUser } from '@/lib/auth/user.server'
 import { db } from '@/lib/db'
@@ -88,7 +90,7 @@ class Wallet {
       },
     })
   }
-  async get(walletId: string, userId: string) {
+  get = cache(async (walletId: string, userId: string) => {
     return db.wallet.findFirst({
       where: {
         id: walletId,
@@ -114,7 +116,7 @@ class Wallet {
         createdAt: true,
       },
     })
-  }
+  })
   async getByIdAndUserId(walletId: string, userId: string) {
     return db.wallet.findFirst({
       where: {

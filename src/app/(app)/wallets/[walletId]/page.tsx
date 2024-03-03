@@ -5,13 +5,21 @@ import { wallet } from '@/data/wallets'
 import { getUser } from '@/lib/auth/user.server'
 import { formatDate } from '@/lib/formatter/dates'
 import { Button } from '@/components/ui/button'
-import { DeleteWalletForm } from '@/components/app/wallet/delete-wallet-form'
-import { EditWalletForm } from '@/components/app/wallet/edit-wallet-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 
-export const metadata = {
-  title: 'Wallet',
+export const generateMetadata = async ({
+  params,
+}: {
+  params: {
+    walletId: string
+  }
+}) => {
+  const user = await getUser()
+  const data = await wallet.get(params.walletId, user.id!)
+  return {
+    title: data ? `${data.name} Wallet` : 'Wallet not found',
+  }
 }
 
 export default async function WalletPage({
@@ -29,7 +37,7 @@ export default async function WalletPage({
 
   return (
     <MainLayout>
-      <TopBar backButton>
+      <TopBar backButton backButtonHref="/wallets">
         <TopBarTitle>{data.name} Wallet</TopBarTitle>
         <Button variant="outline">
           <Link href={`/settings/wallets/${params.walletId}`}>edit</Link>

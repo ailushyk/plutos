@@ -1,5 +1,9 @@
 import { ResetPasswordForm } from '@/components/app/auth/reset-password-form'
 
-export default function ResetPasswordPage() {
+export const metadata = {
+  title: 'Reset Password',
+}
+
+export default async function ResetPasswordPage() {
   return <ResetPasswordForm />
 }

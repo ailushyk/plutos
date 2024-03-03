@@ -1,5 +1,4 @@
 import React from 'react'
-import { Viewport } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { wallet } from '@/data/wallets'
@@ -19,24 +18,10 @@ import {
   NavLabel,
 } from '@/components/sidebar-nav'
 import { SpacesAccordion } from '@/components/spaces-accordion'
-import { UserMenu } from '@/components/user-menu'
 import logoImage from '@/assets/logo.svg'
 
 export const metadata = {
-  title: {
-    default: 'Personal Finance Manager',
-    template: '%s - Plutos',
-  },
   robots: 'noindex, nofollow',
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  // Also supported by less commonly used
-  // interactiveWidget: 'resizes-visual',
 }
 
 const data = {

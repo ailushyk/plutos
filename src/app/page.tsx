@@ -1,6 +1,8 @@
 import { Poppins } from 'next/font/google'
 import { appConfig } from '@/app-config'
 
+import { auth } from '@/lib/auth/auth'
+import { getUser } from '@/lib/auth/user.server'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { LoginButton } from '@/components/app/auth/login-button'
@@ -11,7 +13,8 @@ export const metadata = {
 
 const font = Poppins({ subsets: ['latin'], weight: ['600'] })
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
   return (
     <main
       className={cn(
@@ -26,11 +29,7 @@ export default function Home() {
         {appConfig.appName}
       </h1>
 
-      {process.env.FF_ENABLE_HOME_PAGE_SIGN_IN ? (
-        <FF__SignInForm />
-      ) : (
-        <FF__ComingSoon />
-      )}
+      {session ? <div>l</div> : <FF__SignInForm />}
     </main>
   )
 }

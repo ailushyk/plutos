@@ -15,6 +15,10 @@ import {
   SubmitButton,
 } from '@/components/form'
 
+export const metadata = {
+  title: 'New Password',
+}
+
 export default function AuthNewPasswordPage({
   searchParams,
 }: {

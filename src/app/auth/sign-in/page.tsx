@@ -2,9 +2,11 @@ import React from 'react'
 
 import { SignInForm } from '@/components/app/auth/sign-in-form'
 
-interface LoginPageProps {}
+export const metadata = {
+  title: 'Sign In',
+}
 
-function LoginPage(props: LoginPageProps) {
+function LoginPage() {
   return <SignInForm />
 }
 

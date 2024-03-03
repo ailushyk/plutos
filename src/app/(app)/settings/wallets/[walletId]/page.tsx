@@ -7,8 +7,18 @@ import { EditWalletForm } from '@/components/app/wallet/edit-wallet-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 
-export const metadata = {
-  title: 'Wallet Settings',
+export const generateMetadata = async ({
+  params,
+}: {
+  params: {
+    walletId: string
+  }
+}) => {
+  const user = await getUser()
+  const data = await wallet.get(params.walletId, user.id!)
+  return {
+    title: `Update ${data?.name} Wallet`,
+  }
 }
 
 export default async function WalletPage({

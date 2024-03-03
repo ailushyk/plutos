@@ -1,9 +1,12 @@
-import Link from 'next/link'
 import { AUTH_SIGN_IN_URL } from '@/routes'
 
 import { Card, CardFooter, CardHeader } from '@/components/ui/card'
 import { AuthHeader } from '@/components/app/auth/auth-header'
 import { BackButton } from '@/components/app/auth/back-button'
+
+export const metadata = {
+  title: 'Auth Error',
+}
 
 export default function AuthErrorPage() {
   return (

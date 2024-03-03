@@ -2,6 +2,10 @@ import { InvalidToken } from '@/components/app/auth/invalid-token'
 import { SignWrapper } from '@/components/app/auth/sign-wrapper'
 import { VerifyRequestContent } from '@/components/app/auth/verify-request-content'
 
+export const metadata = {
+  title: 'Verify request',
+}
+
 export default function VerifyRequest({
   searchParams,
 }: {
