@@ -1,4 +1,5 @@
 import { Poppins } from 'next/font/google'
+import Link from 'next/link'
 import { appConfig } from '@/app-config'
 
 import { auth } from '@/lib/auth/auth'
@@ -29,25 +30,19 @@ export default async function Home() {
         {appConfig.appName}
       </h1>
 
-      {session ? <div>l</div> : <FF__SignInForm />}
-    </main>
-  )
-}
-
-function FF__ComingSoon() {
-  return <p className="text-lg drop-shadow-md">Coming soon...</p>
-}
-
-function FF__SignInForm() {
-  return (
-    <>
       <p className="text-center text-lg drop-shadow-md">
         A new way to manage your finances
       </p>
 
-      <LoginButton asChild>
-        <Button size="lg">Sigh In</Button>
-      </LoginButton>
-    </>
+      {session ? (
+        <Button asChild>
+          <Link href="/dashboard">Dashboard</Link>
+        </Button>
+      ) : (
+        <LoginButton asChild>
+          <Button size="lg">Sigh In</Button>
+        </LoginButton>
+      )}
+    </main>
   )
 }
