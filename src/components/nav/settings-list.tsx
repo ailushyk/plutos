@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 import { ChevronLeftIcon } from '@/components/icons/chevron-left-icon'
 
-export const NavList = ({ children }: { children: React.ReactNode }) => {
+export const SettingsList = ({ children }: { children: React.ReactNode }) => {
   return <nav className="flex flex-col gap-3">{children}</nav>
 }
-export const NavListItem = ({
+export const SettingsListItem = ({
   title,
   description,
   href,

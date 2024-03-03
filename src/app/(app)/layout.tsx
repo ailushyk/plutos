@@ -44,6 +44,8 @@ const data = {
   ],
 }
 
+const FF_WALLETS = false
+
 export default async function AppLayout({
   children,
 }: {
@@ -61,7 +63,7 @@ export default async function AppLayout({
             <div className="flex items-center justify-between px-4 py-3">
               <div className="flex items-center gap-1">
                 <Link
-                  href="/"
+                  href="/dashboard"
                   className="flex items-center text-xl font-semibold text-muted-foreground"
                   aria-label="Plutos logo, navigate to home"
                 >
@@ -87,20 +89,17 @@ export default async function AppLayout({
                   <NavItemIcon name="focus" />
                   Focus
                 </NavItem>
-                <NavItem href="/settings">
-                  <NavItemIcon name="settings" />
-                  Settings
-                </NavItem>
-                <NavDivider />
-
-                <NavLabel>Finances</NavLabel>
-                <NavItem href="/transactions/expenses">
+                <NavItem href="/transactions">
                   <NavItemIcon name="layers" />
-                  My Expenses
+                  Transactions
                 </NavItem>
                 <NavItem href="/budget">
                   <NavItemIcon name="cti" />
                   Budget
+                </NavItem>
+                <NavItem href="/settings">
+                  <NavItemIcon name="settings" />
+                  Settings
                 </NavItem>
                 <NavDivider />
 
@@ -117,137 +116,126 @@ export default async function AppLayout({
                   </>
                 )}
 
-                <NavLabel>Favorite</NavLabel>
-                <NavItem href="/wallets/personal-account">
-                  <NavItemIcon name="layers" />
-                  Main Expenses
-                </NavItem>
-                <NavItem href="/wallets/personal-account">
-                  <NavItemIcon name="cti" />
-                  Cash Flow
-                </NavItem>
-                <NavItem href="/lib">
-                  <NavItemIcon name="lib" />
-                  Lib
-                </NavItem>
-                <NavDivider />
+                {FF_WALLETS && (
+                  <SpacesAccordion>
+                    <NavGroup>
+                      <NavLabel>Accounts</NavLabel>
+                      {data.accounts.map((account: any) => (
+                        <AccordionItem
+                          key={account.id}
+                          value={account.id}
+                          asChild
+                        >
+                          <NavGroup>
+                            <AccordionTrigger className="group flex cursor-default items-center gap-2 rounded-md px-3 py-1 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:no-underline">
+                              <div className="flex items-center gap-1">
+                                <NavItemIcon name="space" />
+                                {account.title}
+                              </div>
+                            </AccordionTrigger>
 
-                <SpacesAccordion>
-                  <NavGroup>
-                    <NavLabel>Accounts</NavLabel>
-                    {data.accounts.map((account: any) => (
-                      <AccordionItem
-                        key={account.id}
-                        value={account.id}
-                        asChild
-                      >
-                        <NavGroup>
-                          <AccordionTrigger className="group flex cursor-default items-center gap-2 rounded-md px-3 py-1 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:no-underline">
-                            <div className="flex items-center gap-1">
-                              <NavItemIcon name="space" />
-                              {account.title}
-                            </div>
-                          </AccordionTrigger>
-
-                          <AccordionContent>
-                            <NavGroup nested="md">
-                              <NavItem
-                                href={`/wallets/${account.slug}/incomes`}
-                              >
-                                <NavItemIcon
-                                  name="tree"
-                                  className="rotate-90"
-                                />
-                                Incomes
-                              </NavItem>
-                              <NavItem
-                                href={`/wallets/${account.slug}/transactions`}
-                              >
-                                <NavItemIcon
-                                  name="tree"
-                                  className="rotate-90"
-                                />
-                                Transactions
-                              </NavItem>
-                              <NavItem
-                                href={`/wallets/${account.slug}/expenses`}
-                              >
-                                <NavItemIcon
-                                  name="tree"
-                                  className="rotate-90"
-                                />
-                                Expenses
-                              </NavItem>
-                              <NavItem
-                                href={`/wallets/${account.slug}/subscriptions`}
-                              >
-                                <NavItemIcon
-                                  name="tree"
-                                  className="rotate-90"
-                                />
-                                Subscriptions
-                              </NavItem>
-                              <NavGroup variant="border" nested="md">
+                            <AccordionContent>
+                              <NavGroup nested="md">
                                 <NavItem
-                                  href={`/account/${account.slug}/subscriptions/active`}
+                                  href={`/wallets/${account.slug}/incomes`}
                                 >
-                                  actives
+                                  <NavItemIcon
+                                    name="tree"
+                                    className="rotate-90"
+                                  />
+                                  Incomes
                                 </NavItem>
                                 <NavItem
-                                  href={`/wallets/${account.slug}/subscriptions/new`}
+                                  href={`/wallets/${account.slug}/transactions`}
                                 >
-                                  new
+                                  <NavItemIcon
+                                    name="tree"
+                                    className="rotate-90"
+                                  />
+                                  Transactions
                                 </NavItem>
                                 <NavItem
-                                  href={`/wallets/${account.slug}/subscriptions/removed`}
+                                  href={`/wallets/${account.slug}/expenses`}
                                 >
-                                  removed
+                                  <NavItemIcon
+                                    name="tree"
+                                    className="rotate-90"
+                                  />
+                                  Expenses
+                                </NavItem>
+                                <NavItem
+                                  href={`/wallets/${account.slug}/subscriptions`}
+                                >
+                                  <NavItemIcon
+                                    name="tree"
+                                    className="rotate-90"
+                                  />
+                                  Subscriptions
+                                </NavItem>
+                                <NavGroup variant="border" nested="md">
+                                  <NavItem
+                                    href={`/account/${account.slug}/subscriptions/active`}
+                                  >
+                                    actives
+                                  </NavItem>
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/subscriptions/new`}
+                                  >
+                                    new
+                                  </NavItem>
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/subscriptions/removed`}
+                                  >
+                                    removed
+                                  </NavItem>
+                                </NavGroup>
+
+                                <NavItem
+                                  href={`/wallets/${account.slug}/planning-and-analysis`}
+                                >
+                                  <NavItemIcon name="cti" />
+                                  Planning & Analysis
+                                </NavItem>
+                                <NavGroup
+                                  variant="border"
+                                  nested="md"
+                                  className="visible"
+                                >
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/planning-and-analysis/budgeting-tools`}
+                                  >
+                                    budgeting tools
+                                  </NavItem>
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/planning-and-analysis/expense-tracking`}
+                                  >
+                                    expense tracking
+                                  </NavItem>
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/planning-and-analysis/investment-analysis`}
+                                  >
+                                    investment analysis
+                                  </NavItem>
+                                  <NavItem
+                                    href={`/wallets/${account.slug}/planning-and-analysis/financial-reporting`}
+                                  >
+                                    financial reporting
+                                  </NavItem>
+                                </NavGroup>
+                                <NavItem
+                                  href={`/wallets/${account.slug}/views`}
+                                >
+                                  <NavItemIcon name="app-view" />
+                                  Views
                                 </NavItem>
                               </NavGroup>
-
-                              <NavItem
-                                href={`/wallets/${account.slug}/planning-and-analysis`}
-                              >
-                                <NavItemIcon name="cti" />
-                                Planning & Analysis
-                              </NavItem>
-                              <NavGroup
-                                variant="border"
-                                nested="md"
-                                className="visible"
-                              >
-                                <NavItem
-                                  href={`/wallets/${account.slug}/planning-and-analysis/budgeting-tools`}
-                                >
-                                  budgeting tools
-                                </NavItem>
-                                <NavItem
-                                  href={`/wallets/${account.slug}/planning-and-analysis/expense-tracking`}
-                                >
-                                  expense tracking
-                                </NavItem>
-                                <NavItem
-                                  href={`/wallets/${account.slug}/planning-and-analysis/investment-analysis`}
-                                >
-                                  investment analysis
-                                </NavItem>
-                                <NavItem
-                                  href={`/wallets/${account.slug}/planning-and-analysis/financial-reporting`}
-                                >
-                                  financial reporting
-                                </NavItem>
-                              </NavGroup>
-                              <NavItem href={`/wallets/${account.slug}/views`}>
-                                <NavItemIcon name="app-view" />
-                                Views
-                              </NavItem>
-                            </NavGroup>
-                          </AccordionContent>
-                        </NavGroup>
-                      </AccordionItem>
-                    ))}
-                  </NavGroup>
-                </SpacesAccordion>
+                            </AccordionContent>
+                          </NavGroup>
+                        </AccordionItem>
+                      ))}
+                    </NavGroup>
+                  </SpacesAccordion>
+                )}
               </NavGroup>
 
               <BottomPlaceholder />

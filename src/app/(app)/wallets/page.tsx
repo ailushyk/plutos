@@ -3,7 +3,7 @@ import { wallet } from '@/data/wallets'
 
 import { getUser } from '@/lib/auth/user.server'
 import { Button } from '@/components/ui/button'
-import { EmptyList } from '@/components/app/empty-list'
+import { EmptyContent } from '@/components/app/empty-content'
 import { MainMobileNav } from '@/components/app/main-mobile-nav'
 import { WalletItem } from '@/components/app/wallet/wallet-list-item'
 import { BottomPlaceholder } from '@/components/bottom-placeholder'
@@ -40,12 +40,12 @@ export default async function WalletsPage() {
         </List>
 
         {wallets.length === 0 && (
-          <EmptyList>
+          <EmptyContent>
             <p>You don&apos;t have any wallets yet.</p>
             <Button asChild variant="default">
               <Link href="/wallets/add">Create Wallet</Link>
             </Button>
-          </EmptyList>
+          </EmptyContent>
         )}
         <BottomPlaceholder />
       </Main>
