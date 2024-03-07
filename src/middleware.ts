@@ -26,6 +26,8 @@ export default auth((req) => {
   }
 
   if (isClosedRoutes) {
+    // Redirect to default redirect url if user is logged in
+    // add callback url to redirect to the original page
     return Response.redirect(new URL(AUTH_DEFAULT_REDIRECT_URL, nextUrl))
   }
 

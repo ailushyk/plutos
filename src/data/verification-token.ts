@@ -48,6 +48,7 @@ class VerificationToken {
     }
   }
 
+  // TODO:
   async generateToken(email: string) {
     try {
       const token = crypto.randomBytes(48).toString('hex')

@@ -1,8 +1,9 @@
-import { PrismaAdapter } from '@auth/prisma-adapter'
+import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import NextAuth from 'next-auth'
 
 import { authConfig } from '@/lib/auth/auth.config'
-import { db } from '@/lib/db'
+import { db } from '@/db'
+import { UserService } from '@/services/user-service'
 
 declare module 'next-auth' {
   interface User {
@@ -20,12 +21,9 @@ export const {
   pages: {
     signIn: '/auth/sign-in',
     error: '/auth/error',
-    // verifyRequest: '/auth/verify-request',
-    // signOut: '/auth/signout',
-    // newUser: '/auth/new-user',
   },
-  adapter: PrismaAdapter(db),
-  session: { strategy: 'jwt' },
+  adapter: DrizzleAdapter(db),
+  session: { strategy: 'jwt' }, // TODO: doesn't work with database sessions
   callbacks: {
     async signIn({ user, account, ...props }) {
       if (account?.provider === 'credentials') {
@@ -35,12 +33,12 @@ export const {
       }
       return true
     },
-    //   async jwt({ token, user, ...rest }) {
-    //     if (user) {
-    //       /** TODO: add all user data what u need to the token when logged in */
-    //     }
-    //     return token
-    //   },
+    async jwt({ token, user, ...rest }) {
+      if (user) {
+        /** TODO: add all user data what u need to the token when logged in */
+      }
+      return token
+    },
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub
@@ -50,12 +48,9 @@ export const {
   },
   events: {
     async linkAccount({ account, user, ...props }) {
-      await db.user.update({
-        where: { id: user.id },
-        data: {
-          emailVerified: new Date(),
-        },
-      })
+      if (user && user.email) {
+        await UserService.confirmEmail(user.email)
+      }
     },
   },
 })
