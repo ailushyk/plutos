@@ -79,16 +79,21 @@ class Wallet {
     })
   }
   async all() {
-    const user = await getUser()
-    return db.wallet.findMany({
-      where: {
-        userId: user.id,
-      },
-      include: {
-        currency: true,
-        type: true,
-      },
-    })
+    try {
+      const user = await getUser()
+      return await db.wallet.findMany({
+        where: {
+          userId: user.id,
+        },
+        include: {
+          currency: true,
+          type: true,
+        },
+      })
+    } catch (error) {
+      console.error('Error fetching wallets', error)
+      return []
+    }
   }
   get = cache(async (walletId: string, userId: string) => {
     return db.wallet.findFirst({
