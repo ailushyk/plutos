@@ -10,6 +10,7 @@ export const isServer = typeof window !== undefined
 export const getAvatarFallbackTitle = (title: string) => {
   return title
     .split(' ')
+    .slice(0, 2)
     .map((n) => n[0])
     .join('')
 }

@@ -1,20 +1,21 @@
 import React from 'react'
+import { Slot } from '@radix-ui/react-slot'
 
 import { cn } from '@/lib/utils'
 
 export const List = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex flex-col">{children}</div>
+  return <div className="mx-auto flex max-w-lg flex-col">{children}</div>
 }
 
-export const ListItem = ({ children }: { children: React.ReactNode }) => {
+export function ListGroup({ children }: { children: React.ReactNode }) {
   return (
-    <div className="border-b bg-background px-6 py-2 transition hover:bg-accent">
+    <div className="mx-4 overflow-hidden rounded-xl border bg-gray-900">
       {children}
     </div>
   )
 }
 
-export function ListGroup({
+export function ListGroupTitle({
   children,
   className,
 }: {
@@ -22,13 +23,28 @@ export function ListGroup({
   className?: string
 }) {
   return (
-    <div
+    <div className={cn('mt-2 px-6 py-2 text-sm', className)}>{children}</div>
+  )
+}
+
+export const ListItem = ({
+  children,
+  className,
+  asChild,
+}: {
+  children: React.ReactNode
+  className?: string
+  asChild?: boolean
+}) => {
+  const Comp = asChild ? Slot : 'div'
+  return (
+    <Comp
       className={cn(
-        'sticky top-0 z-10 flex h-11 items-center gap-3 border-b bg-accent px-6 text-sm dark:bg-gray-900',
+        'block w-full border-b px-6 py-2 last:border-none hover:bg-accent',
         className,
       )}
     >
       {children}
-    </div>
+    </Comp>
   )
 }
