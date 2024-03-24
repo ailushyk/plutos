@@ -1,6 +1,5 @@
 import { cache } from 'react'
 
-import { auth } from '@/lib/auth/auth'
 import { getUser } from '@/lib/auth/user.server'
 import { db } from '@/lib/db'
 

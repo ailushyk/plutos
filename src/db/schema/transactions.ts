@@ -38,7 +38,9 @@ export const walletType = mysqlTable(
     createdAt: datetime('createdAt', { mode: 'string', fsp: 3 })
       .default(sql`CURRENT_TIMESTAMP(3)`)
       .notNull(),
-    updatedAt: datetime('updatedAt', { mode: 'string', fsp: 3 }).notNull(),
+    updatedAt: datetime('updatedAt', { mode: 'string', fsp: 3 })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
+      .notNull(),
   },
   (table) => {
     return {
@@ -51,7 +53,9 @@ export const walletType = mysqlTable(
 export const wallet = mysqlTable(
   'Wallet',
   {
-    id: varchar('id', { length: 255 }).notNull(),
+    id: varchar('id', { length: 255 })
+      .default(sql`(uuid())`)
+      .notNull(),
     userId: varchar('userId', { length: 255 }).notNull(),
     name: varchar('name', { length: 255 }).notNull(),
     typeId: varchar('typeId', { length: 255 }).notNull(),
@@ -59,7 +63,9 @@ export const wallet = mysqlTable(
     createdAt: datetime('createdAt', { mode: 'string', fsp: 3 })
       .default(sql`CURRENT_TIMESTAMP(3)`)
       .notNull(),
-    updatedAt: datetime('updatedAt', { mode: 'string', fsp: 3 }).notNull(),
+    updatedAt: datetime('updatedAt', { mode: 'string', fsp: 3 })
+      .default(sql`CURRENT_TIMESTAMP(3)`)
+      .notNull(),
     currencyId: varchar('currencyId', { length: 255 }).notNull(),
   },
   (table) => {

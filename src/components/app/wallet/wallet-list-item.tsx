@@ -9,11 +9,11 @@ export function WalletItem({
     name: string
     type: {
       name: string
-    }
+    } | null
     balance: number
     currency: {
       name: string
-    }
+    } | null
   }
 }) {
   return (
@@ -24,12 +24,12 @@ export function WalletItem({
       </Avatar>
       <div className="ml-4 space-y-1">
         <p className="text-sm font-medium leading-none">{wallet.name}</p>
-        <p className="text-sm text-muted-foreground">{wallet.type.name}</p>
+        <p className="text-sm text-muted-foreground">{wallet.type?.name}</p>
       </div>
       <div className="ml-auto flex flex-col items-end font-medium">
         <div>{wallet.balance}</div>
         <div className="text-sm text-muted-foreground">
-          {wallet.currency.name}
+          {wallet.currency?.name}
         </div>
       </div>
     </div>

@@ -1,11 +1,8 @@
 import { sql } from 'drizzle-orm'
 import {
-  AnyMySqlColumn,
   datetime,
-  decimal,
   index,
   int,
-  mysqlSchema,
   mysqlTable,
   primaryKey,
   text,

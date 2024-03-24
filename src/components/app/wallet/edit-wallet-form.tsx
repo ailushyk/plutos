@@ -1,7 +1,4 @@
 import { updateWalletAction } from '@/actions/wallet.actions'
-import { currency } from '@/data/currency'
-import { wallet } from '@/data/wallets'
-
 import {
   Form,
   FormError,
@@ -14,6 +11,8 @@ import {
   FormSuccess,
   SubmitButton,
 } from '@/components/form'
+import { CurrencyService } from '@/services/currency-service'
+import { WalletService } from '@/services/wallet-service'
 
 export const EditWalletForm = async ({
   defaultValues,
@@ -21,6 +20,7 @@ export const EditWalletForm = async ({
   defaultValues: {
     id: string
     name: string
+    balance: number
     currency: {
       id: string
       name: string
@@ -31,8 +31,8 @@ export const EditWalletForm = async ({
     }
   }
 }) => {
-  const currencyOptions = await currency.all()
-  const typeOptions = await wallet.types()
+  const currencyOptions = await CurrencyService.all()
+  const typeOptions = await WalletService.types()
   return (
     <Form action={updateWalletAction}>
       <input type="hidden" name="id" value={defaultValues.id} />
@@ -42,7 +42,7 @@ export const EditWalletForm = async ({
           <FormInput defaultValue={defaultValues.name} />
           <FormMessage />
         </FormField>
-        <FormField name="currency">
+        <FormField name="currencyId">
           <FormLabel>Currency</FormLabel>
           <FormSelect defaultValue={defaultValues.currency.id}>
             {currencyOptions.map((currency) => (
@@ -53,7 +53,7 @@ export const EditWalletForm = async ({
           </FormSelect>
           <FormMessage />
         </FormField>
-        <FormField name="type">
+        <FormField name="typeId">
           <FormLabel>Type</FormLabel>
           <FormSelect defaultValue={defaultValues.type.id}>
             {typeOptions.map((currency) => (

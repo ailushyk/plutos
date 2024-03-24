@@ -1,11 +1,11 @@
 import NotFound from 'next/dist/client/components/not-found-error'
-import { wallet } from '@/data/wallets'
 
 import { getUser } from '@/lib/auth/user.server'
 import { DeleteWalletForm } from '@/components/app/wallet/delete-wallet-form'
 import { EditWalletForm } from '@/components/app/wallet/edit-wallet-form'
 import { Container, Main, MainLayout } from '@/components/layout/main-layout'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
+import { WalletService } from '@/services/wallet-service'
 
 export const generateMetadata = async ({
   params,
@@ -15,7 +15,7 @@ export const generateMetadata = async ({
   }
 }) => {
   const user = await getUser()
-  const data = await wallet.get(params.walletId, user.id!)
+  const data = await WalletService.get(params.walletId, user.id!)
   return {
     title: `Update ${data?.name} Wallet`,
   }
@@ -29,7 +29,7 @@ export default async function WalletPage({
   }
 }) {
   const user = await getUser()
-  const data = await wallet.get(params.walletId, user.id!)
+  const data = await WalletService.get(params.walletId, user.id!)
   if (!data) {
     return NotFound()
   }
