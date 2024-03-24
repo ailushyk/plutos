@@ -1,16 +1,15 @@
-import { currency } from '@/data/currency'
-import { wallet } from '@/data/wallets'
-
 import { NewWalletForm } from '@/components/app/wallet/new-wallet-form'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
+import { CurrencyService } from '@/services/currency-service'
+import { WalletService } from '@/services/wallet-service'
 
 export const metadata = {
   title: 'Create New Wallet',
 }
 
 export default async function CreateNewWalletPate() {
-  const currencyOptions = await currency.all()
-  const typeOptions = await wallet.types()
+  const currencyOptions = await CurrencyService.all()
+  const typeOptions = await WalletService.types()
 
   return (
     <div>

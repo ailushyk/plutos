@@ -1,8 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { createWalletAction } from '@/actions/wallet.actions'
 
+import { createWalletAction } from '@/actions/wallet.actions'
 import {
   Form,
   FormError,
@@ -42,7 +42,7 @@ export const NewWalletForm = async ({
           <FormInput />
           <FormMessage />
         </FormField>
-        <FormField name="currency">
+        <FormField name="currencyId">
           <FormLabel>Currency</FormLabel>
           <FormSelect>
             {currencies.map((item) => (
@@ -53,7 +53,7 @@ export const NewWalletForm = async ({
           </FormSelect>
           <FormMessage />
         </FormField>
-        <FormField name="type">
+        <FormField name="typeId">
           <FormLabel>Type</FormLabel>
           <FormSelect>
             {types.map((item) => (

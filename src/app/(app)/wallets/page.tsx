@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import { getUser } from '@/lib/auth/user.server'
 import { EmptyContent } from '@/components/app/empty-content'
 import { MainMobileNav } from '@/components/app/main-mobile-nav'
 import { WalletItem } from '@/components/app/wallet/wallet-list-item'
@@ -9,15 +8,14 @@ import { Main, MainLayout } from '@/components/layout/main-layout'
 import { List, ListGroupTitle, ListItem } from '@/components/list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 import { Button } from '@/components/ui/button'
-import { wallet } from '@/data/wallets'
+import { WalletService } from '@/services/wallet-service'
 
 export const metadata = {
   title: 'Wallets',
 }
 
 export default async function WalletsPage() {
-  const user = await getUser()
-  const wallets = await wallet.allByUser(user.id!)
+  const wallets = await WalletService.all()
   return (
     <MainLayout>
       <TopBar>
