@@ -1,8 +1,6 @@
-import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import NextAuth from 'next-auth'
 
 import { authConfig } from '@/lib/auth/auth.config'
-import { db } from '@/db'
 import { UserService } from '@/services/user-service'
 
 declare module 'next-auth' {
@@ -22,7 +20,6 @@ export const {
     signIn: '/auth/sign-in',
     error: '/auth/error',
   },
-  adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' }, // TODO: doesn't work with database sessions
   callbacks: {
     async signIn({ user, account, ...props }) {

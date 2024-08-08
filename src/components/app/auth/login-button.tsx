@@ -1,36 +1,35 @@
-'use client'
-
 import React from 'react'
-import { useRouter } from 'next/navigation'
-import { AUTH_SIGN_IN_URL } from '@/routes'
 import { Slot } from '@radix-ui/react-slot'
+import { signIn } from '@/lib/auth/auth'
 
 interface LoginButtonProps {
   children: React.ReactNode
-  mode?: 'redirect' | 'modal'
   asChild?: boolean
 }
 
 export const LoginButton = React.forwardRef<
   HTMLButtonElement,
   LoginButtonProps
->(({ children, mode = 'redirect', asChild }, ref) => {
-  const router = useRouter()
+>(({ children, asChild }, ref) => {
   const Component = asChild ? Slot : 'button'
 
-  if (mode === 'modal') {
-    return <span>TODO: implement modal</span>
-  }
-
-  const onClick = () => {
-    console.log('TODO: implement redirect click handler')
-    router.push(AUTH_SIGN_IN_URL)
+  const onClick = async () => {
+    'use server'
+    await signIn('keycloak')
   }
 
   return (
-    <Component ref={ref} onClick={onClick}>
-      {children}
-    </Component>
+    <form
+      action={async () => {
+        'use server'
+        await signIn('keycloak')
+      }}
+    >
+      <Component ref={ref} onClick={onClick}>
+        {children}
+      </Component>
+    </form>
+
   )
 })
 
