@@ -1,53 +1,43 @@
 import NextAuth from 'next-auth'
 
 import { authConfig } from '@/lib/auth/auth.config'
-import { UserService } from '@/services/user-service'
-
-declare module 'next-auth' {
-  interface User {
-    emailVerified: Date | null
-  }
-}
+import { env } from '@/env'
 
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
-  signOut,
+  signOut
 } = NextAuth({
   ...authConfig,
-  pages: {
-    signIn: '/auth/sign-in',
-    error: '/auth/error',
-  },
-  session: { strategy: 'jwt' }, // TODO: doesn't work with database sessions
   callbacks: {
-    async signIn({ user, account, ...props }) {
-      if (account?.provider === 'credentials') {
-        if (!user?.emailVerified) {
-          return false
-        }
-      }
-      return true
-    },
-    async jwt({ token, user, ...rest }) {
-      if (user) {
-        /** TODO: add all user data what u need to the token when logged in */
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.idToken = account.id_token
       }
       return token
     },
-    async session({ session, token }) {
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
+    async session({ session, token, user }) {
+      session.idToken = token.idToken as string
       return session
-    },
+    }
   },
   events: {
-    async linkAccount({ account, user, ...props }) {
-      if (user && user.email) {
-        await UserService.confirmEmail(user.email)
+    // async linkAccount({ account, user, ...props }) {
+    //   if (user && user.email) {
+    //     await UserService.confirmEmail(user.email)
+    //   }
+    // },
+    async signOut(message) {
+      if ('token' in message) {
+        const token = { message }
+        const idToken = (token.message.token?.idToken as string) || ''
+        const logOutUrl = new URL(
+          `${env.AUTH_KEYCLOAK_ISSUER}/protocol/openid-connect/logout`
+        )
+        logOutUrl.searchParams.set('id_token_hint', idToken)
+        await fetch(logOutUrl)
       }
-    },
-  },
+    }
+  }
 })

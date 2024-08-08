@@ -1,12 +1,9 @@
-import { cache } from 'react'
-
 import { auth } from '@/lib/auth/auth'
 
-export const getUser = cache(async () => {
+export const getUser = async () => {
   const session = await auth()
-  if (!(session?.user.id)) {
+  if (!session?.user) {
     throw new Error('User not authenticated')
   }
-
   return session.user
-})
+}

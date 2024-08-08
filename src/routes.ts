@@ -3,7 +3,7 @@
  * @type {string[]}
  */
 
-export const AUTH_SIGN_IN_URL = '/auth/sign-in'
+export const AUTH_SIGN_IN_URL = '/'
 export let AUTH_VERIFICATION_EMAIL_URL = '/auth/verify-request'
 export let AUTH_NEW_PASSWORD_URL = '/auth/new-password'
 export const AUTH_DEFAULT_REDIRECT_URL = '/dashboard'

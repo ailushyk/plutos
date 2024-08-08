@@ -6,7 +6,7 @@ import { auth } from '@/lib/auth/auth'
 import { getUser } from '@/lib/auth/user.server'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { LoginButton } from '@/components/app/auth/login-button'
+import { SignIn } from '@/components/auth/sign-in'
 
 export const metadata = {
   title: 'Plutos: the new way to manage your finances',
@@ -39,9 +39,9 @@ export default async function Home() {
           <Link href="/dashboard">Dashboard</Link>
         </Button>
       ) : (
-        <LoginButton asChild>
+        <SignIn asChild>
           <Button size="lg">Sigh In</Button>
-        </LoginButton>
+        </SignIn>
       )}
     </main>
   )
