@@ -1,33 +1,23 @@
 import React from 'react'
 import Link from 'next/link'
-import { User } from 'next-auth'
 
 import { signOut } from '@/lib/auth/auth'
 import { getUser } from '@/lib/auth/user.server'
-import { cn, getAvatarFallbackTitle } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Icon } from '@/components/icons/icon'
-
-export const getInitials = (user: User) => {
-  if (user?.name) {
-    return getAvatarFallbackTitle(user.name)
-  }
-  if (user?.email) {
-    return user.email[0]
-  }
-  return ''
-}
+import { getInitials } from '@/lib/string-utils'
 
 export async function UserMenu() {
   const user = await getUser()
-  const initials = getInitials(user)
+  const initials = getInitials(user?.name || user?.email)
 
   return (
     <>

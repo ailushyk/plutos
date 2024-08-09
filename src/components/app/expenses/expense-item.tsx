@@ -3,8 +3,8 @@ import { Decimal } from '@prisma/client/runtime/binary'
 
 import { formatCurrency } from '@/lib/formatter/currency'
 import { formatDate } from '@/lib/formatter/dates'
-import { getAvatarFallbackTitle } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { getInitials } from '@/lib/string-utils'
 
 export function ExpenseItem({
   expense,
@@ -27,7 +27,7 @@ export function ExpenseItem({
     <div className="flex items-center">
       <Avatar className="h-9 w-9">
         <AvatarImage src="" alt="Wallet image" />
-        <AvatarFallback>{getAvatarFallbackTitle(expense.title)}</AvatarFallback>
+        <AvatarFallback>{getInitials(expense.title)}</AvatarFallback>
       </Avatar>
       <div className="ml-4 space-y-1">
         <div className="pt-1 font-medium leading-none">{expense.title}</div>

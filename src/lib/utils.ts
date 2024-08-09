@@ -7,14 +7,4 @@ export function cn(...inputs: ClassValue[]) {
 
 export const isServer = typeof window !== undefined
 
-export const getAvatarFallbackTitle = (title: string) => {
-  return title
-    .split(' ')
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join('')
-}
 
-export function sleep(number: number) {
-  return new Promise((resolve) => setTimeout(resolve, number))
-}

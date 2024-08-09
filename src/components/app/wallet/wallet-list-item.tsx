@@ -1,5 +1,5 @@
-import { getAvatarFallbackTitle } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { getInitials } from '@/lib/string-utils'
 
 export function WalletItem({
   wallet,
@@ -20,7 +20,7 @@ export function WalletItem({
     <div className="flex items-center">
       <Avatar className="h-9 w-9">
         <AvatarImage src="" alt="Wallet image" />
-        <AvatarFallback>{getAvatarFallbackTitle(wallet.name)}</AvatarFallback>
+        <AvatarFallback>{getInitials(wallet.name)}</AvatarFallback>
       </Avatar>
       <div className="ml-4 space-y-1">
         <p className="text-sm font-medium leading-none">{wallet.name}</p>
