@@ -6,12 +6,6 @@ import { env } from '@/env'
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      id: string
-      email: string
-      name: string
-      image: string
-    }
     idToken: string
     accessToken: string
   }
@@ -27,6 +21,7 @@ export const {
   callbacks: {
     async jwt({ token, account, trigger, profile }) {
       if (account) {
+        token.idToken = account.id_token
         token.accessToken = account.access_token
         token.accessExpiresAt = Number(account.expires_at) * 1000
         token.refreshToken = account.refresh_token

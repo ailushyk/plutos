@@ -1,15 +1,16 @@
 import { NewWalletForm } from '@/components/app/wallet/new-wallet-form'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
-import { CurrencyService } from '@/services/currency-service'
-import { WalletService } from '@/services/wallet-service'
+import { CurrencyService } from '@/modules/currency/currency-service'
+import { UserWalletService } from '@/modules/wallets/user-wallet-service'
+import { createWalletAction } from '@/modules/wallets/wallet-actions'
 
 export const metadata = {
-  title: 'Create New Wallet',
+  title: 'Add New Wallet',
 }
 
-export default async function CreateNewWalletPate() {
+export default async function CreateNewWalletPage() {
   const currencyOptions = await CurrencyService.all()
-  const typeOptions = await WalletService.types()
+  const typeOptions = await UserWalletService.types()
 
   return (
     <div>
@@ -23,7 +24,11 @@ export default async function CreateNewWalletPate() {
           create a wallet for your personal assets and another wallet for your
           business assets.
         </p>
-        <NewWalletForm types={typeOptions} currencies={currencyOptions} />
+        <NewWalletForm
+          action={createWalletAction}
+          types={typeOptions}
+          currencies={currencyOptions}
+        />
       </main>
     </div>
   )

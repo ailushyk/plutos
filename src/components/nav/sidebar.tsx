@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/accordion'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
-import { SidebarWalletsNav } from './sidebar-wallets-nav'
+import { SidebarWallets } from './sidebar-wallets'
 
 const data = {
   accounts: [
@@ -102,7 +102,7 @@ export const Sidebar = () => {
                   </div>
                 }
               >
-                <SidebarWalletsNav />
+                <SidebarWallets />
               </Suspense>
 
               {FF_WALLETS && (

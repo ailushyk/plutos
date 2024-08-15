@@ -4,9 +4,9 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
 import { ChevronLeftIcon } from '@/components/icons/chevron-left-icon'
 import { TransactionsMenuIcon } from '@/components/icons/transactions-menu-icon'
+import { Button } from '@/components/ui/button'
 
 const TopBar = ({
   children,
@@ -18,7 +18,7 @@ const TopBar = ({
   backButtonHref?: string
 }) => {
   return (
-    <div className="flex min-h-12 items-center gap-1 border-b px-6 py-2">
+    <div className="flex min-h-12 items-center gap-x-1.5 border-b px-6">
       {backButton && <TopBarBackButton href={backButtonHref} />}
 
       <div className="flex flex-1 items-center justify-between gap-2">
@@ -39,7 +39,7 @@ function TopBarBackButton({ href }: { href?: string }) {
   const router = useRouter()
   if (href) {
     return (
-      <Button variant="ghost" className="p-0" asChild>
+      <Button variant="ghost" size="icon" asChild>
         <Link href={href}>
           <ChevronLeftIcon />
         </Link>
@@ -48,7 +48,7 @@ function TopBarBackButton({ href }: { href?: string }) {
   }
 
   return (
-    <Button variant="ghost" className="p-0" onClick={() => router.back()}>
+    <Button variant="ghost" size="icon" onClick={() => router.back()}>
       <ChevronLeftIcon />
     </Button>
   )

@@ -1,6 +1,5 @@
-import { deleteWalletAction } from '@/actions/wallet.actions'
-
 import { Form, FormError, FormSuccess, SubmitButton } from '@/components/form'
+import { deleteWalletAction } from '@/modules/wallets/wallet-actions'
 
 export function DeleteWalletForm({ walletId }: { walletId: string }) {
   return (

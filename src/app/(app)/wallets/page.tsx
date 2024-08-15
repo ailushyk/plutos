@@ -8,14 +8,14 @@ import { Main, MainLayout } from '@/components/layout/main-layout'
 import { List, ListGroupTitle, ListItem } from '@/components/list'
 import { TopBar, TopBarTitle } from '@/components/top-bar/top-bar'
 import { Button } from '@/components/ui/button'
-import { WalletService } from '@/services/wallet-service'
+import { UserWalletService } from '@/modules/wallets/user-wallet-service'
 
 export const metadata = {
   title: 'Wallets',
 }
 
 export default async function WalletsPage() {
-  const wallets = await WalletService.all()
+  const wallets = await UserWalletService.all()
   return (
     <MainLayout>
       <TopBar>
@@ -41,7 +41,7 @@ export default async function WalletsPage() {
           <EmptyContent>
             <p>You don&apos;t have any wallets yet.</p>
             <Button asChild variant="default">
-              <Link href="/wallets/add">Create Wallet</Link>
+              <Link href="/settings/wallets/add">Create Wallet</Link>
             </Button>
           </EmptyContent>
         )}

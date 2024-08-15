@@ -5,12 +5,12 @@ import * as LabelPrimitive from '@radix-ui/react-label'
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { cn } from '@/lib/utils'
-import { Button, ButtonProps } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { DangerousIcon } from '@/components/icons/dangerous-icon'
 import { SuccessIcon } from '@/components/icons/success-icon'
 import { TextWithPendingSpinner } from '@/components/text-with-pending-spinner'
+import { Button, ButtonProps } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 type FormStateValue<TData = Record<string, any>> = {
   status: 'ok' | 'error' | 'pending' | 'idle'
@@ -18,6 +18,11 @@ type FormStateValue<TData = Record<string, any>> = {
   message?: string
   errors?: {} & Record<string, string | string[]>
 }
+
+type FormActionType<TData = any> = (
+  prevState: any,
+  formData: FormData,
+) => Promise<FormStateValue>
 
 type FormContextValue = {
   id: string
@@ -39,14 +44,14 @@ const useForm = () => {
   return { ...formContext, getValues }
 }
 
-const defaultInitialState: FormStateValue = {
+const DEFAULT_INITIAL_STATE: FormStateValue = {
   status: 'idle',
 }
 
 const Form = ({
   children,
   action,
-  initialData = defaultInitialState,
+  initialData = DEFAULT_INITIAL_STATE,
   className,
   onSuccess,
 }: {
@@ -69,7 +74,7 @@ const Form = ({
       ref.current?.reset()
       onSuccess?.()
     }
-  }, [onSuccess, state.status])
+  }, [onSuccess, state])
 
   return (
     <FormContext.Provider value={{ id, state, form: ref.current }}>
@@ -285,4 +290,4 @@ export {
   useFormField,
 }
 
-export type { FormStateValue }
+export type { FormStateValue, FormActionType }

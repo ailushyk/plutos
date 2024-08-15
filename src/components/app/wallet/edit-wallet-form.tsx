@@ -1,4 +1,3 @@
-import { updateWalletAction } from '@/actions/wallet.actions'
 import {
   Form,
   FormError,
@@ -11,8 +10,9 @@ import {
   FormSuccess,
   SubmitButton,
 } from '@/components/form'
-import { CurrencyService } from '@/services/currency-service'
-import { WalletService } from '@/services/wallet-service'
+import { CurrencyService } from '@/modules/currency/currency-service'
+import { UserWalletService } from '@/modules/wallets/user-wallet-service'
+import { updateWalletAction } from '@/modules/wallets/wallet-actions'
 
 export const EditWalletForm = async ({
   defaultValues,
@@ -32,7 +32,7 @@ export const EditWalletForm = async ({
   }
 }) => {
   const currencyOptions = await CurrencyService.all()
-  const typeOptions = await WalletService.types()
+  const typeOptions = await UserWalletService.types()
   return (
     <Form action={updateWalletAction}>
       <input type="hidden" name="id" value={defaultValues.id} />

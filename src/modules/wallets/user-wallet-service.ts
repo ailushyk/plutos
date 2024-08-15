@@ -1,14 +1,24 @@
+import { z } from 'zod'
+
 import { getUser } from '@/lib/auth/user.server'
+import { fetcher } from '@/lib/fetcher'
 import { WalletRepository } from '@/db/repositories/wallet-repository'
 import { FormStateValue } from '@/components/form'
-import { WalletTypeRepository } from '@/data/wallet-type-repository'
-import { NewWalletSchema, UpdateWalletSchema } from '@/schemas/wallet.schema'
+import { env } from '@/env'
+import { Wallet } from '@/modules/wallets/types'
+import {
+  FormWalletSchema,
+  UpdateWalletSchema,
+} from '@/modules/wallets/wallet-schema'
+
+const types = async () => {
+  const { data } = await fetcher<Wallet[]>(`${env.API_URL}/api/wallet-types`)
+  return data
+}
 
 const all = async () => {
-  const user = await getUser()
-  return WalletRepository.allByUserIdWithRelations({
-    userId: user.id,
-  })
+  const { data } = await fetcher<Wallet[]>(`${env.API_URL}/api/wallets`)
+  return data
 }
 
 const get = async (walletId: string, userId: string) => {
@@ -16,28 +26,6 @@ const get = async (walletId: string, userId: string) => {
     walletId,
     userId,
   })
-}
-
-function types() {
-  return WalletTypeRepository.all()
-}
-
-async function create(data: any): Promise<FormStateValue> {
-  const user = await getUser()
-  const validatedFields = NewWalletSchema.safeParse(data)
-
-  if (!validatedFields.success) {
-    return {
-      status: 'error',
-      message: 'Invalid input',
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-
-  await WalletRepository.create(user.id, validatedFields.data)
-  return {
-    status: 'ok',
-  }
 }
 
 async function update(walletId: string, data: any): Promise<FormStateValue> {
@@ -97,11 +85,19 @@ async function deleteById(walletId: string): Promise<FormStateValue> {
   }
 }
 
-export const WalletService = {
+export const UserWalletService = {
   all,
   get,
   types,
-  create,
+  create: async (
+    values: z.infer<typeof FormWalletSchema>,
+  ): Promise<{ id: string; name: string }> => {
+    const { data } = await fetcher(`${env.API_URL}/api/wallets`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+    })
+    return data
+  },
   update,
   delete: deleteById,
 }

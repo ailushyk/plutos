@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react'
 
 import { NavDivider, NavItem, NavItemIcon } from '@/components/sidebar-nav'
-import { WalletService } from '@/services/wallet-service'
+import { UserWalletService } from '@/modules/wallets/user-wallet-service'
 
-export const SidebarWalletsNav = async () => {
-  const wallets = await WalletService.all()
+export const SidebarWallets = async () => {
+  const wallets = await UserWalletService.all()
 
   if (wallets.length === 0) {
     return (
-      <NavItem href="/wallets/new">
+      <NavItem href="/settings/wallets/add">
         <NavItemIcon name="plus" />
         Create a wallet
       </NavItem>

@@ -3,7 +3,10 @@ import { z } from 'zod'
 
 import { db } from '@/db'
 import { currency, wallet, walletType } from '@/db/schema/transactions'
-import { NewWalletSchema, UpdateWalletSchema } from '@/schemas/wallet.schema'
+import {
+  FormWalletSchema,
+  UpdateWalletSchema,
+} from '@/modules/wallets/wallet-schema'
 
 function allByUserId({ userId }: { userId: string }) {
   return db.select().from(wallet).where(eq(wallet.userId, userId))
